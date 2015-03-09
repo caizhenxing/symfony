@@ -1,0 +1,8 @@
+
+services:
+    Dcs.CmnAccount:
+        class: Dcs\CmnAccount
+        scope: prototype
+        arguments:
+            - @gaia.user.user_service
+            - @Dcs.MaintenanceSchedule

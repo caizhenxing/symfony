@@ -1,0 +1,42 @@
+
+services:
+    Arpg.Logic.GachaData.Banner:
+        class: Logic\GachaData\Banner
+        scope: prototype
+        arguments:
+            - @service_container
+
+    Arpg.Logic.GachaData.Info:
+        class: Logic\GachaData\Info
+        scope: prototype
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.GachaData.Box:
+        class: Logic\GachaData\Box
+        scope: prototype
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.GachaData.Result:
+        class: Logic\GachaData\Result
+        scope: prototype
+        arguments:
+            - @service_container
+            
+    inner.Arpg.Logic.Gacha.CardSet:
+        class: Gaia\Bundle\GachaBundle\CardSet\SimpleCardSet
+        arguments:
+            - @gaia.dao.gacha.mst_gacha
+            
+    Arpg.Logic.Gacha:
+        class:          Gaia\Bundle\GachaBundle\Service\GachaService
+        factory_class:  Gaia\Bundle\GachaBundle\Service\GachaServiceFactory
+        factory_method: createValidatePeriodGacha
+        arguments:
+            - @gaia.dao.gacha.mst_gacha
+            - @logger
+            -
+                - @inner.Arpg.Logic.Gacha.CardSet
+            
+         

@@ -1,0 +1,31 @@
+
+services:
+    Arpg.Logic.GameData.RecipeData:
+        class: Logic\GameData\RecipeData
+        scope: prototype
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.GameData.NaviChara:
+        class: Logic\GameData\NaviChara
+        scope: prototype
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.GameData.Train:
+        class: Logic\GameData\Train
+        scope: prototype
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.GameData.FactoryItem:
+        class: Logic\GameData\FactoryItem
+        scope: prototype
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.GameData.Reward:
+        class: Logic\GameData\Reward
+        scope: prototype
+        arguments:
+            - @service_container

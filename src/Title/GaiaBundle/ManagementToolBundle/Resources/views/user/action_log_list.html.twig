@@ -1,0 +1,162 @@
+{% set body = 'class="single-col"' %}
+{% set navigation_active = 'user_search' %}
+{% set tab_active = 'user_log' %}
+
+
+{% extends '@GaiaManagementTool/parts/contents.html.twig' %}
+
+{% block main %}
+
+    <h2 class=" mb mt">アクションログ一覧</h2>
+
+    {% set sort_id = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\ActionLogSort::ID') %}
+    {% set sort_tag0 = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\ActionLogSort::TAG0') %}
+    {% set sort_tag1 = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\ActionLogSort::TAG1') %}
+    {% set sort_tag2 = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\ActionLogSort::TAG2') %}
+    {% set sort_tag3 = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\ActionLogSort::TAG3') %}
+    {% set sort_error = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\ActionLogSort::ERROR') %}
+    {% set sort_log = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\ActionLogSort::LOG') %}
+    {% set sort_date = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\ActionLogSort::DATE') %}
+    {% set sort_order_asc = constant('Gaia\\Bundle\\ManagementToolBundle\\Constant\\Sort::ORDER_ASC') %}
+    {% set sort_order_desc = constant('Gaia\\Bundle\\ManagementToolBundle\\Constant\\Sort::ORDER_DESC') %}
+    
+    <form action="{{ path('title_action_log_list') }}" id="form" method="POST" role="form">
+        <input type="hidden" name="sort_colmn" value="{{ sort_colmn }}">
+        <input type="hidden" name="sort_order" value="{{ sort_order }}">
+        <input type="hidden" name="user_id" value="{{ user_id }}">
+    <table class="table table-striped">
+        <tr>
+        <th></th>
+        <th width="60px">
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_id }});">ID
+            {% if sort_colmn == sort_id and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_id and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_tag0 }});">タグ1
+            {% if sort_colmn == sort_tag0 and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_tag0 and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_tag1 }});">タグ2
+            {% if sort_colmn == sort_tag1 and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_tag1 and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_tag2 }});">タグ3
+            {% if sort_colmn == sort_tag2 and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_tag2 and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_tag3 }});">タグ4
+            {% if sort_colmn == sort_tag3 and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_tag3 and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_error }});">エラー
+            {% if sort_colmn == sort_error and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_error and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            メッセージ
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_date }});">実行日時
+            {% if sort_colmn == sort_date and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_date and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        </tr>
+    
+        <tr style="font-size: 12px;">
+            <td style="white-space: nowrap;">
+            <button type="button" style="height: 22px;font-size: 10px;padding: 0px 2px;" onclick="formSubmit('{{ path('title_action_log_list') }}');">
+        		<span style="font-size: 12px;vertical-align: -1px;width: 15px;" class="icon">&#xe68f;</span>フィルター
+        	</button></td>
+            <td>
+                <input type="text" class="form-control filt" name="filt_id" value="{{ filt_id }}">
+            </td>
+            <td>
+				<select class="form-control filt" name="filt_tag0" >
+				{% for tag in flt_select.tag0 %}
+		    		<option value="{{ tag }}" class="tac" {% if tag == filt_tag0 %}selected{% endif %}>{{ tag }}</option>
+		    	{% endfor %}
+			    </select>
+            </td>
+            <td>
+				<select class="form-control filt" name="filt_tag1" >
+				{% for tag in flt_select.tag1 %}
+		    		<option value="{{ tag }}" class="tac" {% if tag == filt_tag1 %}selected{% endif %}>{{ tag }}</option>
+		    	{% endfor %}
+			    </select>
+            </td>
+            <td>
+				<select class="form-control filt" name="filt_tag2" >
+				{% for tag in flt_select.tag2 %}
+		    		<option value="{{ tag }}" class="tac" {% if tag == filt_tag2 %}selected{% endif %}>{{ tag }}</option>
+		    	{% endfor %}
+			    </select>
+            </td>
+            <td>
+				<select class="form-control filt" name="filt_tag3" >
+				{% for tag in flt_select.tag3 %}
+		    		<option value="{{ tag }}" class="tac" {% if tag == filt_tag3 %}selected{% endif %}>{{ tag }}</option>
+		    	{% endfor %}
+			    </select>
+            </td>
+            <td>
+            </td>
+            <td>
+                <input type="text" class="form-control filt" name="filt_log" value="{{ filt_log }}">
+            </td>
+            <td>
+                <input type="text" class="form-control filt" name="filt_date" value="{{ filt_date }}">
+            </td>
+        </tr>
+        
+        {% for mes_info in mes_info_list %}
+            <tr>
+            	<td></td>
+                <td>{{ mes_info.id }}</td>
+                <td>{{ mes_info.tag0 }}</td>
+                <td>{{ mes_info.tag1 }}</td>
+                <td>{{ mes_info.tag2 }}</td>
+                <td>{{ mes_info.tag3 }}</td>
+                <td>{{ mes_info.error }}</td>
+                <td style="white-space: pre;">{{ mes_info.log }}</td>
+                <td>{{ mes_info.date }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% if 0 < mes_info_list | length %}
+    {% include 'GaiaManagementToolBundle:parts:pager.html.twig' %}
+    {% endif %}
+
+    </form>
+{% endblock %}
+
+
+
+
+{% block resource %}
+<style>
+	.filt{
+		height: 25px;
+		padding: 0px;
+		font-size: 10px;
+	}
+</style>
+{% endblock %}

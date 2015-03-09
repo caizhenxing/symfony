@@ -1,0 +1,174 @@
+{% set navigation_active = 'setting' %}
+{% set sidebar_active = 'event' %}
+{% set tab_active  = 'event_shop' %}
+
+{% extends '@GaiaManagementTool/parts/contents.html.twig' %}
+
+{% block main %}
+    {% set sort_cat = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\EventShopSort::CAT') %}
+    {% set sort_pri = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\EventShopSort::PRI') %}
+    {% set sort_stdid = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\EventShopSort::STDID') %}
+    {% set sort_title = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\EventShopSort::TITLE') %}
+    {% set sort_pay = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\EventShopSort::PAY') %}
+    {% set sort_limit = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\EventShopSort::LIMIT') %}
+    {% set sort_from = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\EventShopSort::FROM') %}
+    {% set sort_to = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\EventShopSort::TO') %}
+    {% set sort_order_asc = constant('Gaia\\Bundle\\ManagementToolBundle\\Constant\\Sort::ORDER_ASC') %}
+    {% set sort_order_desc = constant('Gaia\\Bundle\\ManagementToolBundle\\Constant\\Sort::ORDER_DESC') %}
+    
+    <h2 class=" mb mt"><a class="btn"  href="javascript:void(0);" onclick="var id=prompt('新しい受取IDを入力してください');if(id!=null)movePage('{{ path('title_event_shop_edit', {'id': 'ARPG_TRADE_ID','action':'new', 'sort_colmn':sort_colmn, 'sort_order':sort_order , 'offset': offset }) }}'.replace('ARPG_TRADE_ID',id));"><span class="icon">&#xe614;</span>新規作成</a><br></h2>
+    
+	{% if errors is not empty %}
+	<div class="alert alert-danger">
+	    {% for error in errors %}
+	        {{ error }}</br>
+	    {% endfor %}
+	</div>
+	{% endif %}
+    
+    <form action="{{ path('title_event_shop_list') }}" id="form" method="POST" role="form">
+        <input type="hidden" name="sort_colmn" value="{{ sort_colmn }}">
+        <input type="hidden" name="sort_order" value="{{ sort_order }}">
+    <table class="table table-striped">
+        <tr>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_cat }});">カテゴリ
+            {% if sort_colmn == sort_cat and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_cat and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_pri }});">カテゴリ内優先度
+            {% if sort_colmn == sort_pri and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_pri and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_stdid }});">ID
+            {% if sort_colmn == sort_stdid and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_stdid and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_title }});">タイトル
+            {% if sort_colmn == sort_title and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_title and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_pay }});">支払
+            {% if sort_colmn == sort_pay and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_pay and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            受取アイテム
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_eid }});">交換上限
+            {% if sort_colmn == sort_limit and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_limit and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <div style="width:100%;">
+	            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_from }});">開始日時
+	            {% if sort_colmn == sort_from and sort_order == sort_order_asc %}▲
+	            {% elseif sort_colmn == sort_from and sort_order == sort_order_desc %}▼
+	            {% endif %}
+	            </a>
+           	</div>
+           	<div style="background-color: rgba(0,0,0,0.05);width:100%;">
+	            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_to }});">終了日時
+	            {% if sort_colmn == sort_to and sort_order == sort_order_asc %}▲
+	            {% elseif sort_colmn == sort_to and sort_order == sort_order_desc %}▼
+	            {% endif %}
+	            </a>
+            </div>
+        </th>
+        <th></th>
+        </tr>
+        <!-- フィルタ -->
+        <tr>
+            <td><input type="text" class="form-control filt" name="filt_cat" value="{{ filt_cat }}"></td>
+            <td><input type="text" class="form-control filt" name="filt_pri" value="{{ filt_pri }}"></td>
+            <td><input type="text" class="form-control filt" name="filt_id" value="{{ filt_id }}"></td>
+            <td><input type="text" class="form-control filt" name="filt_title" value="{{ filt_title }}"></td>
+            <td></td>
+            <td></td>
+            <td><input type="text" class="form-control filt" name="filt_limit" value="{{ filt_limit }}"></td>
+            <td><input type="text" class="form-control filt" name="filt_time" value="{{ filt_time }}"></td>
+            <td style="white-space: nowrap;">
+            <button type="button" style="height: 22px;font-size: 10px;padding: 0px 2px;" onclick="formSubmit('{{ path('title_event_shop_list') }}');">
+        		<span style="font-size: 12px;vertical-align: -1px;width: 15px;" class="icon">&#xe68f;</span>フィルター
+        	</button></td>
+        </tr>
+        
+        {% for info in datalist %}
+            <tr>
+                <td>{{info.category}}</td>
+                <td>{{info.category_priority}}</td>
+                <td>
+                    <a class="no_role_check" href="{{ path('title_event_shop_edit', {'id': info.std_id, 'sort_colmn':sort_colmn, 'sort_order':sort_order , 'offset': offset }) }}" >{{ info.std_id }}</a>
+                </td>
+                <td>{{ info.title }}</td>
+                <td>{{ info.pay_std_id }}×{{ info.pay_num }}</td>
+                <td>
+                	{% for i,item in info.items %}
+	                	<div style="width:100%;{% if i % 2 == 1 %}background-color: rgba(0,0,0,0.05);{% endif %}">
+	                		{{ item }}
+	                	</div>
+                	{% endfor%}
+                </td>
+                <td>{{ info.limit }}</td>
+                <td>
+                	<div style="width:100%;">
+                		{{ info.effective_from }}
+                	</div>
+                	<div style="background-color: rgba(0,0,0,0.05);width:100%;">
+                		{{ info.effective_to }}
+                	</div>
+                </td>
+        		<td>
+        			<a class="btn"  href="javascript:void(0);" onclick="var id=prompt('新しい受取IDを入力してください');if(id!=null)movePage('{{ path('title_event_shop_edit', {'id': 'ARPG_TRADE_ID','src_id':info.std_id, 'action':'new', 'sort_colmn':sort_colmn, 'sort_order':sort_order , 'offset': offset }) }}'.replace('ARPG_TRADE_ID',id));">複製</a>
+        		</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% if 0 < mes_info_list | length %}
+    {% include 'GaiaManagementToolBundle:parts:pager.html.twig' %}
+    {% endif %}
+
+    </form>
+{% endblock %}
+
+
+
+
+{% block resource %}
+<style>
+	.filt{
+		height: 25px;
+		padding: 0px;
+		font-size: 10px;
+	}
+	.box_black{
+		color: #000000;
+	}
+	.box_blue{
+		color: #0004b0;
+	}
+	.box_red{
+		color: #b00000;
+	}
+	.box_green{
+		color: #00b036;
+	}
+</style>
+{% endblock %}

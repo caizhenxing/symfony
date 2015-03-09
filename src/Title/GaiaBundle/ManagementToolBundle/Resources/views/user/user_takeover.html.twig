@@ -1,0 +1,60 @@
+{% set body = 'class="single-col" onload="init();"' %}
+{% set navigation_active = 'user_search' %}
+{% set tab_active = 'user_takeover' %}
+
+{% extends '@GaiaManagementTool/parts/contents.html.twig' %}
+
+{% block pre %}
+    <div id="loading"></div>
+{% endblock %}
+
+{% block main %}
+
+<h2 class=" mb mt">ユーザID：{{ user_id }}</h2>
+
+{% if ( errors is defined and errors is not empty) %}
+    <div class="alert alert-danger">
+        {% for error in errors %}
+            {{ error }}</br>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<form method="POST" class="form-group" novalidate="novalidate" action="{{ path('user_takeover_passwording') }}">
+
+    <div class="form-group-inner">
+
+        <div class="input-group hide">
+            <input type="text" class="form-control" name="user_id" value="{{ user_id }}" readonly>
+        </div>
+		{% if info.password is defined and info.password is not null %}
+			{% set is_set = true %}
+	        <div class="input-group half-width">
+	            <span class="input-group-addon">引継ぎパスワード</span>
+	            <input type="text" class="form-control" name="take_over_id" value="{{ info.password }}" readonly>
+	        </div>
+	
+	        <div class="input-group half-width">
+	            <span class="input-group-addon">有効期間</span>
+	            <input type="text" name="valid_time" value="{{ info.limitTime }}" class="form-control" readonly>
+	        </div>
+	    {% else %}
+			{% set is_set = false %}
+		    <div class="alert alert-danger">
+		        まだ引継ぎ登録されていません
+		    </div>
+		{% endif %}
+    </div>
+
+    <div class="submit">
+        <div class="pass"><input type="password" name='admin_password' placeholder="パスワードを入力してください"></div>
+        <div class="button"><button type="submit"><span class="icon">&#xe61b;</span>
+        	{% if is_set %}
+        		再登録
+        	{% else %}
+        		登録
+        	{% endif %}
+        </button></div>
+    </div>
+</form>
+{% endblock %}

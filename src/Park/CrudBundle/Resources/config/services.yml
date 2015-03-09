@@ -1,0 +1,7 @@
+parameters:
+#    park_crud.example.class: Park\CrudBundle\Example
+
+services:
+#    park_crud.example:
+#        class: %park_crud.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

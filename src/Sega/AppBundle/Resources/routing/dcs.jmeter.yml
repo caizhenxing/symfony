@@ -1,0 +1,3 @@
+dcs_jmeter:
+    pattern:  /jmeter/test
+    defaults: { _controller: SegaAppBundle:Jmeter:index }

@@ -1,0 +1,137 @@
+{% set body = 'onload="init();"' %}
+{% set navigation_active = 'setting' %}
+{% set sidebar_active = 'gacha' %}
+{% set tab_active  = 'gacha_list' %}
+
+{% extends '@GaiaManagementTool/parts/contents.html.twig' %}
+
+{% block pre %}
+    <div id="loading"></div>
+{% endblock %}
+
+{% block main %}
+
+{% set mode_str = '登録' %}
+{% if mode == 1 %}
+    {% set mode_str = '編集' %}
+{% endif %}
+
+<h2>ガチャ排出カードマスタ{{ mode_str }}<br>
+    &nbsp;&nbsp;ガチャID：{{ gachaId }}&nbsp;{{ gachaName }}<br>
+    &nbsp;&nbsp;ガチャグループID：{{ gachaGroupId }}
+</h2>
+
+{% if errors is not empty %}
+    <div class="alert alert-danger">
+    {% for error in errors %}
+        {{ error }}</br>
+    {% endfor %}
+    </div>
+{% endif %}
+
+<form action="{{ path('gacha_card_edit') }}" class="form-group" id="form" method="POST" role="form">
+    <input type="hidden" name="backUrl" id="backUrl" value="{{ path('gacha_card_list') }}">
+    <input type="hidden" name="init" value="{{ init }}">
+    <input type="hidden" name="gachaId" value="{{ gachaId }}">
+    <input type="hidden" name="offset" value="{{ offset }}">
+    <input type="hidden" name="gachaMstSortColmn" value="{{ gachaMstSortColmn }}">
+    <input type="hidden" name="gachaMstSortOrder" value="{{ gachaMstSortOrder }}">
+    <input type="hidden" name="mode" value="{{ mode }}">
+    <input type="hidden" name="gachaGroupId" value="{{ gachaGroupId }}">
+    <input type="hidden" name="gachaCardId" value="{{ gachaCardId }}">
+    <input type="hidden" name="openBox" id="openBox" value="{{ openBox }}">
+
+    <div class="form-group-inner">
+
+        {% if mode == 1 %}
+        <div class="input-group half-width">
+            <span class="input-group-addon">ガチャ排出カードID</span>
+            <input type="text" class="form-control" value="{{ gachaCardId }}" readonly>
+        </div>
+        {% endif %}
+
+
+        <div class="input-group assets-form">
+            <span class="input-group-addon">カード</span>
+            <select class="form-control parent assets-type" name="cardType" init="{{ cardType }}" ></select>
+            <select class="form-control child assets-item" name="cardId" init="{{ cardId }}" ></select>
+        </div>
+
+
+        <div class="input-group half-width">
+            <span class="input-group-addon">カード枚数</span>
+            <input type="text" name="cardCount" class="form-control" value="{{ cardCount }}" maxlength="10">
+        </div>
+
+    </div>
+
+    <div class="submit">
+        <div class="back">
+            <a href="javascript:void(0);" onclick="movePage('{{ path('gacha_card_list') }}');"><span class="icon">&#xe61a;</span>キャンセル</a>
+        </div>
+        {% if app.request.cookies.get('LOGIN_USER_ROLE_READ_ONLY') == '0' %}
+        <div class="button">
+            <button type="button" onclick="formSubmit('{{ path('gacha_card_edit_confirm') }}');"><span class="icon">&#xe61b;</span>{{ mode_str }}</button>
+        </div>
+        {% endif %}
+    </div>
+
+</form>
+
+<div id="confirm" style="padding:10px; background:#f6f6f6; display:none" >
+    <form action="" id="form" method="POST" role="form" class="form-group">
+    <div class="form-group-inner">
+
+        {% set mode_str = '登録' %}
+        {% if mode == 1 %}
+            {% set mode_str = '編集' %}
+        {% endif %}
+
+        <div class="alert alert-warning">以下の内容で{{ mode_str }}します。よろしいですか？</div>
+
+        {% if mode == 1 %}
+        <div class="input-group half-width">
+            <span class="input-group-addon">ガチャ排出カードID</span>
+            <input type="text" class="form-control" value="{{ gachaCardId }}" disabled>
+        </div>
+        {% endif %}
+
+        <div class="input-group assets-form">
+            <span class="input-group-addon">カード</span>
+            <select class="form-control parent assets-type" name="cardType" init="{{ cardType }}" ></select>
+            <select class="form-control child assets-item" name="cardId" init="{{ cardId }}" ></select>
+        </div>
+
+        <div class="input-group half-width">
+            <span class="input-group-addon">カード枚数</span>
+            <input type="text" class="form-control" value="{{ cardCount }}" disabled>
+        </div>
+
+    </div>
+
+    <div class="submit">
+        <div class="back"><a href="javascript:void(0);" id="cancel" onclick="$.colorbox.close(); return false;">
+            <span class="icon">&#xe61a;</span>キャンセル</a>
+        </div>
+        <div class="button"><button type="button" id="ok" value="O K"  onclick="formSubmit('{{ path('gacha_card_edit_execution') }}');"><span class="icon">&#xe61b;</span>OK</button></div>
+    </div>
+    </form>
+</div>
+
+<div id="complete" style="padding:10px; background:#f6f6f6; display:none" >
+    {% set mode_str = '登録' %}
+    {% if mode == 1 %}
+        {% set mode_str = '編集' %}
+    {% endif %}
+    <div class="alert alert-success">ガチャ排出カードマスタの{{ mode_str }}が完了しました。</div>
+    <div class="submit">
+        <div class="button"><button type="button" id="ok" value="O K" onclick="$.colorbox.close(); return false;"><span class="icon">&#xe61b;</span>OK</button></div>
+    </div>
+</div>
+
+{{ include('TitleManagementToolBundle:util:assets_selector.html.twig') }}
+{% endblock %}
+
+{% block resource %}
+<script src="{{ asset('bundles/gaiamanagementtool/js/gacha/gacha_card_edit.js') }}" type="text/javascript" charset="utf-8" ></script>
+{% endblock %}

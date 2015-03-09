@@ -1,0 +1,185 @@
+{% set navigation_active = 'setting' %}
+{% set sidebar_active = 'gacha' %}
+{% set tab_active  = 'gacha_shop' %}
+
+{% extends '@GaiaManagementTool/parts/contents.html.twig' %}
+
+{% block main %}
+
+{% set sort_cat = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\GachaShopSort::CATEGORY') %}
+{% set sort_catp = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\GachaShopSort::CATEGORY_PRIORITY') %}
+{% set sort_disp = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\GachaShopSort::DISPLAY') %}
+{% set sort_id = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\GachaShopSort::ID') %}
+{% set sort_ord = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\GachaShopSort::ORDER') %}
+{% set sort_from = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\GachaShopSort::FROM') %}
+{% set sort_to = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\GachaShopSort::TO') %}
+
+{% set sort_order_asc                  = constant('Gaia\\Bundle\\ManagementToolBundle\\Constant\\Sort::ORDER_ASC') %}
+{% set sort_order_desc                 = constant('Gaia\\Bundle\\ManagementToolBundle\\Constant\\Sort::ORDER_DESC') %}
+
+<form action="{{ path('gacha_shop_list') }}" id="form" method="POST" role="form">
+    <input type="hidden" name="sort_colmn" value="{{ sort_colmn }}">
+    <input type="hidden" name="sort_order" value="{{ sort_order }}">
+    <input type="hidden" name="gachaId">
+    <input type="hidden" name="mode">
+    <!-- main contents -->
+    <h2>ガチャショップ<a class="btn"  href="javascript:void(0);" onclick="var id=prompt('新しいショップIDを入力してください');if(id!=null)movePage('{{ path('gacha_shop_edit', {'id': 'ARPG_SHOP_ID','src_id': -1 ,'action':'new', 'sort_colmn':sort_colmn, 'sort_order':sort_order , 'offset': offset ,'filt_cat': filt_cat, 'filt_disp': filt_disp, 'filt_order': filt_order, 'filt_now': filt_now}) }}'.replace('ARPG_SHOP_ID',id));"><span class="icon">&#xe614;</span>新規作成</a></h2>
+	
+	{% if errors is not empty %}
+	<div class="alert alert-danger">
+	    {% for error in errors %}
+	        {{ error }}</br>
+	    {% endfor %}
+	</div>
+	{% endif %}
+    <table class="table table-striped">
+    <tr>
+    <th>
+        <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_cat }});">カテゴリ
+        {% if sort_colmn == sort_cat and sort_order == sort_order_asc %}▲
+        {% elseif sort_colmn == sort_cat and sort_order == sort_order_desc %}▼
+        {% endif %}
+        </a>
+    </th>
+    <th>
+        <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_catp }});">カテゴリ優先度
+        {% if sort_colmn == sort_catp and sort_order == sort_order_asc %}▲
+        {% elseif sort_colmn == sort_catp and sort_order == sort_order_desc %}▼
+        {% endif %}
+        </a>
+    </th>
+    <th style="min-width: 80px;">
+        <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_disp }});">表示タイプ
+        {% if sort_colmn == sort_disp and sort_order == sort_order_asc %}▲
+        {% elseif sort_colmn == sort_disp and sort_order == sort_order_desc %}▼
+        {% endif %}
+        </a>
+    </th>
+    <th>
+        <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_order }});">表示順
+        {% if sort_colmn == sort_ord and sort_order == sort_order_asc %}▲
+        {% elseif sort_colmn == sort_ord and sort_order == sort_order_desc %}▼
+        {% endif %}
+        </a>
+    </th>
+    <th style="min-width: 180px; text-align: center;">
+        情報
+    </th>
+    <th style="text-align: center;">
+        <div style="width:100%;">
+        <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_from }});" style="white-space: nowrap; width:100%;">開始日時
+        {% if sort_colmn == sort_from and sort_order == sort_order_asc %}▲
+        {% elseif sort_colmn == sort_from and sort_order == sort_order_desc %}▼
+        {% endif %}
+        </a>
+        </div>
+        <div style="background-color: rgba(0,0,0,0.05);width:100%;">
+        <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_to }});" style="white-space: nowrap;">終了日時
+        {% if sort_colmn == sort_to and sort_order == sort_order_asc %}▲
+        {% elseif sort_colmn == sort_to and sort_order == sort_order_desc %}▼
+        {% endif %}
+        </a>
+        </div>
+    </th>
+    <th></th>
+    </tr>
+    
+    <tr style="font-size: 12px;">
+        <td>
+            <input type="text" class="form-control filt" name="filt_cat" value="{{ filt_cat }}">
+        </td>
+        <td></td>
+        <td>
+        	<select class="form-control filt" name="filt_disp">
+        		<option value="" class="tac" {% if filt_disp == 0 %}selected{% endif %}></option>
+        		<option value="1" class="tac" {% if filt_disp == 1 %}selected{% endif %}>バナー</option>
+        		<option value="2" class="tac" {% if filt_disp == 2 %}selected{% endif %}>フレーム</option>
+        		<option value="3" class="tac" {% if filt_disp == 3 %}selected{% endif %}>Noah</option>
+        	</select>
+        </td>
+        <td>
+            <input type="text" class="form-control filt" name="filt_order" value="{{ filt_order }}">
+        </td>
+        <td></td>
+        <td>
+        	<input type="text" class="form-control date filt" name="filt_now" value="{{ filt_now }}" maxlength="10">
+        </td>
+        <td style="white-space: nowrap;">
+        <button type="button" style="height: 22px;font-size: 10px;padding: 0px 2px;" onclick="formSubmit('{{ path('gacha_shop_list') }}');">
+    		フィルター
+    	</button></td>
+    </tr>
+        
+
+    {% for shop_info in shopList if shopList is defined %}
+    <tr>
+    <td>{{ shop_info.category }}</td>
+    <td>{{ shop_info.category_priority }}</td>
+    <td>{{ shop_info.display }}</td>
+    <td>{{ shop_info.order }}</td>
+    <td>
+	    <div class="info_base info_id" style="background-color: rgba(255,255,0,0.1);"><span class="icon">&#xe60b;</span>{{ shop_info.id }}</div>
+	    <div class="info_base info_title" style="background-color: rgba(0,0,255,0.1);"><span class="icon">&#xe600;</span>{{ shop_info.title }}</div>
+	    <div class="info_base info_cost" style="background-color: rgba(0,255,0,0.1);"><span class="icon">&#xe631;</span>{{ shop_info.cost }}</div>
+	    {% for idx,func_name in shop_info.func %}
+	    	{% if idx % 2 == 0 %}
+	    		{% set bgc = "rgba(0,0,0,0)" %}
+	    	{% else %}
+	    		{% set bgc = "rgba(0,0,0,0.05)" %}
+	    	{% endif %}
+	    	<div style="background-color: {{ bgc }};">
+	    	{{ func_name }}
+	    	</div>
+	    {% endfor%}
+    </td>
+    <td style="text-align: center;">
+	    <div>{{ shop_info.from }}</div>
+	   	<div  style="background-color: rgba(0,0,0,0.05);">{{ shop_info.to }}</div>
+   	</td>
+    <td style="text-align: center;">
+    	<a href="javascript:void(0);" onclick="movePage('{{ path('gacha_shop_edit', {'id': shop_info.id, 'sort_colmn':sort_colmn, 'sort_order':sort_order , 'offset': offset ,'filt_cat': filt_cat,'filt_disp': filt_disp,'filt_order': filt_order,'filt_now': filt_now}) }}');">編集</a><br>
+    	<a href="javascript:void(0);" onclick="var id=prompt('新しいショップIDを入力してください');if(id!=null)movePage('{{ path('gacha_shop_edit', {'id': 'ARPG_SHOP_ID','src_id': shop_info.id,  'action':'new', 'sort_colmn':sort_colmn, 'sort_order':sort_order , 'offset': offset ,'filt_cat': filt_cat,'filt_disp': filt_disp,'filt_order': filt_order,'filt_now': filt_now}) }}'.replace('ARPG_SHOP_ID',id));">複製</a>
+    </td>
+    </tr>
+    {% endfor %}
+    </table>
+
+    {% if 0 < shopList | length %}
+    {% include 'GaiaManagementToolBundle:parts:pager.html.twig' %}
+    {% endif %}
+</form>
+{% endblock %}
+
+{% block resource %}
+<style>
+	.filt{
+		height: 25px;
+		padding: 0px;
+		font-size: 10px;
+	}
+	.info_base{
+		position: relative;
+	}
+	.info_base:hover::before {
+		position: absolute;
+		background-color: rgba(255,255,255,0.8);
+		border-radius: 5px;
+		box-shadow:2px 2px 2px rgba(0,0,0,0.7);
+		font-weight: bold;
+		text-align: center;
+		padding:2px 5px;
+		right: 95%;
+		top: -5px;
+		white-space: nowrap;
+	}
+	.info_id:hover::before{
+		content: "ID";
+	}
+	.info_title:hover::before{
+		content: "タイトル";
+	}
+	.info_cost:hover::before{
+		content: "コスト";
+	}
+</style>
+{% endblock %}

@@ -1,0 +1,244 @@
+arpg_readonly_player_basic:
+    pattern: /stdconnect/read/player_basic/{data}
+    defaults: { _controller: SegaAppBundle:PlayerState:getBasic }
+    
+arpg_readonly_player_state:
+    pattern: /stdconnect/read/player_state/{data}
+    defaults: { _controller: SegaAppBundle:PlayerState:get }
+
+arpg_readonly_player_current_actor:
+    pattern: /stdconnect/read/player_current_actor/{data}
+    defaults: { _controller: SegaAppBundle:PlayerState:getActor }
+
+arpg_readonly_player_actor:
+    pattern: /stdconnect/read/player_actor/{data}
+    defaults: { _controller: SegaAppBundle:PlayerState:getActorList }
+
+arpg_readonly_player_equip:
+    pattern: /stdconnect/read/player_equip/{data}
+    defaults: { _controller: SegaAppBundle:Equip:getEquip }
+    
+arpg_readonly_player_factory:
+    pattern: /stdconnect/read/player_factory/{data}
+    defaults: { _controller: SegaAppBundle:Factory:get }
+    
+arpg_readonly_player_world:
+    pattern: /stdconnect/read/player_world/{data}
+    defaults: { _controller: SegaAppBundle:QuestData:getWorld }
+
+arpg_readonly_player_area:
+    pattern: /stdconnect/read/player_area/{data}
+    defaults: { _controller: SegaAppBundle:QuestData:getArea }
+    
+arpg_readonly_player_dungeon:
+    pattern: /stdconnect/read/player_dungeon/{data}
+    defaults: { _controller: SegaAppBundle:QuestData:getDungeon }
+    
+arpg_readonly_player_dungeon_stdid:
+    pattern: /stdconnect/read/player_dungeon_stdid/{data}
+    defaults: { _controller: SegaAppBundle:QuestData:getDungeonByStdID }
+    
+arpg_readonly_player_card_stock:
+    pattern: /stdconnect/read/player_card_stock/{data}
+    defaults: { _controller: SegaAppBundle:Equip:getCardStock }
+    
+arpg_readonly_player_item_stock:
+    pattern: /stdconnect/read/player_item_stock/{data}
+    defaults: { _controller: SegaAppBundle:Equip:getItemStock }
+    
+arpg_readonly_game_train:
+    pattern: /stdconnect/read/game_train/{data}
+    defaults: { _controller: SegaAppBundle:Train:getTrain }
+
+arpg_readonly_gacha_banner:
+    pattern: /stdconnect/read/gacha_banner/{data}
+    defaults: { _controller: SegaAppBundle:GachaData:getBanner }
+
+arpg_readonly_gacha_info:
+    pattern: /stdconnect/read/gacha_info/{data}
+    defaults: { _controller: SegaAppBundle:GachaData:getInfo }
+
+arpg_readonly_gacha_getter:
+    pattern: /stdconnect/read/gacha_getter/{data}
+    defaults: { _controller: SegaAppBundle:GachaData:getGetter }
+    
+arpg_readonly_game_factory_item:
+    pattern: /stdconnect/read/game_factory_item/{data}
+    defaults: { _controller: SegaAppBundle:GameData:getFactoryItem }
+    
+arpg_readonly_game_navi_chara:
+    pattern: /stdconnect/read/game_navi_chara/{data}
+    defaults: { _controller: SegaAppBundle:GameData:getNaviChara }
+    
+arpg_readonly_player_home:
+    pattern: /stdconnect/read/player_home/{data}
+    defaults: { _controller: SegaAppBundle:PlayerState:getHome }
+    
+arpg_readonly_player_home_pub:
+    pattern: /stdconnect/read/player_home_pub/{data}
+    defaults: { _controller: SegaAppBundle:PlayerState:getHomePub }
+    
+arpg_readonly_player_home_popup:
+    pattern: /stdconnect/read/player_home_popup/{data}
+    defaults: { _controller: SegaAppBundle:PlayerState:getHomePopup }
+    
+arpg_readonly_player_home_batch:
+    pattern: /stdconnect/read/player_home_batch/{data}
+    defaults: { _controller: SegaAppBundle:PlayerState:getHomeBatch}
+    
+arpg_readonly_player_equiped_card:
+    pattern: /stdconnect/read/player_equiped_card/{data}
+    defaults: { _controller: SegaAppBundle:Equip:getActionEquiped }
+    
+arpg_readonly_ghost_data:
+    pattern: /stdconnect/read/ghost_data/{data}
+    defaults: { _controller: SegaAppBundle:PlayerState:getGhostData }
+    
+arpg_readonly_player_friend:
+    pattern: /stdconnect/read/player_friend/{data}
+    defaults: { _controller: SegaAppBundle:Friend:getList }
+    
+arpg_readonly_adventure_buddies:
+    pattern: /stdconnect/read/adventure_buddies/{data}
+    defaults: { _controller: SegaAppBundle:Friend:getBuddies }
+    
+arpg_readonly_player_ghost:
+    pattern: /stdconnect/read/player_ghost/{data}
+    defaults: { _controller: SegaAppBundle:Friend:getGhost }
+    
+arpg_readonly_find_friend:
+    pattern: /stdconnect/read/find_friend/{data}
+    defaults: { _controller: SegaAppBundle:Friend:findFriend }
+    
+arpg_readonly_player_detail:
+    pattern: /stdconnect/read/player_detail/{data}
+    defaults: { _controller: SegaAppBundle:Friend:getDetail }
+    
+arpg_readonly_find_matching_room:
+    pattern: /stdconnect/read/find_matching_room/{data}
+    defaults: { _controller: SegaAppBundle:Matching:find}
+    
+arpg_readonly_find_matching_room_by_host:
+    pattern: /stdconnect/read/find_matching_room_by_host/{data}
+    defaults: { _controller: SegaAppBundle:Matching:findByHost}
+    
+arpg_readonly_find_matching_room_by_rid:
+    pattern: /stdconnect/read/find_matching_room_by_rid/{data}
+    defaults: { _controller: SegaAppBundle:Matching:findByRid}
+    
+arpg_readonly_find_matching_room_by_ticket:
+    pattern: /stdconnect/read/find_matching_room_by_ticket/{data}
+    defaults: { _controller: SegaAppBundle:Matching:findByTicket}
+    
+arpg_readonly_fetch_msg_setting_preset_msgs:
+    pattern: /stdconnect/read/fetch_msg_setting_preset_msgs/{data}
+    defaults: { _controller: SegaAppBundle:BBS:getPresetMessage}
+    
+arpg_readonly_fetch_present_box_items:
+    pattern: /stdconnect/read/fetch_present_box_items/{data}
+    defaults: { _controller: SegaAppBundle:Present:fetchPresent}
+    
+arpg_readonly_get_equip_param:
+    pattern: /stdconnect/read/get_equip_param/{data}
+    defaults: { _controller: SegaAppBundle:Equip:getEquipParam}
+    
+arpg_readonly_message_heads:
+    pattern: /stdconnect/read/message_heads/{data}
+    defaults: { _controller: SegaAppBundle:Message:getList}
+    
+arpg_readonly_message_body:
+    pattern: /stdconnect/read/message_body/{data}
+    defaults: { _controller: SegaAppBundle:Message:getMes}
+    
+arpg_readonly_adv_data:
+    pattern: /stdconnect/read/adv_data/{data}
+    defaults: { _controller: SegaAppBundle:Adv:get}
+    
+arpg_readonly_get_init_actor_parts:
+    pattern: /stdconnect/read/get_init_actor_parts/{data}
+    defaults: { _controller: SegaAppBundle:GameData:getInitActorParts}
+    
+arpg_readonly_fetch_msg_setting_autowords:
+    pattern: /stdconnect/read/fetch_msg_setting_autowords/{data}
+    defaults: { _controller: SegaAppBundle:BBS:getAutoWord}
+    
+arpg_readonly_player_dungeon_join:
+    pattern: /stdconnect/read/player_dungeon_join/{data}
+    defaults: { _controller: SegaAppBundle:QuestData:getJoinDungeon}
+    
+arpg_readonly_trade_item_list:
+    pattern: /stdconnect/read/trade_item_list/{data}
+    defaults: { _controller: SegaAppBundle:Trade:getList}
+    
+arpg_readonly_trade_menu:
+    pattern: /stdconnect/read/trade_menu/{data}
+    defaults: { _controller: SegaAppBundle:Trade:getMenu}
+    
+arpg_readonly_chat_list:
+    pattern: /stdconnect/read/chat_list/{data}
+    defaults: { _controller: SegaAppBundle:BBS:getList}
+    
+arpg_readonly_chat_thread:
+    pattern: /stdconnect/read/chat_thread/{data}
+    defaults: { _controller: SegaAppBundle:BBS:getThread}
+    
+arpg_readonly_act_tutorial:
+    pattern: /stdconnect/read/act_tutorial/{data}
+    defaults: { _controller: SegaAppBundle:GameData:actTutorial}
+    
+arpg_readonly_seq_tutorial:
+    pattern: /stdconnect/read/seq_tutorial/{data}
+    defaults: { _controller: SegaAppBundle:GameData:seqTutorial}
+    
+arpg_readonly_story_view:
+    pattern: /stdconnect/read/story_view/{data}
+    defaults: { _controller: SegaAppBundle:Adv:storyView}
+    
+arpg_readonly_text:
+    pattern: /stdconnect/read/text/{data}
+    defaults: { _controller: SegaAppBundle:GameData:text}
+    
+arpg_readonly_item_base:
+    pattern: /stdconnect/read/item_base/{data}
+    defaults: { _controller: SegaAppBundle:GameData:itemBase}
+    
+arpg_readonly_chara_create_data:
+    pattern: /stdconnect/read/chara_create_data/{data}
+    defaults: { _controller: SegaAppBundle:PlayerState:charaCreateData}
+    
+arpg_readonly_takeover_info:
+    pattern: /stdconnect/read/takeover_info/{data}
+    defaults: { _controller: SegaAppBundle:TakeOver:info}
+    
+arpg_readonly_takeover_check:
+    pattern: /stdconnect/read/takeover_check/{data}
+    defaults: { _controller: SegaAppBundle:TakeOver:check}
+    
+arpg_readonly_get_cp:
+    pattern: /stdconnect/read/get_cp/{data}
+    defaults: { _controller: SegaAppBundle:PlayerState:getCp}
+    
+arpg_readonly_get_cw:
+    pattern: /stdconnect/read/get_cw/{data}
+    defaults: { _controller: SegaAppBundle:GameData:getCw}
+    
+arpg_readonly_game_info:
+    pattern: /stdconnect/read/game_info/{data}
+    defaults: { _controller: SegaAppBundle:GameData:getGameInfo}
+    
+arpg_readonly_loading_tips:
+    pattern: /stdconnect/read/loading_tips/{data}
+    defaults: { _controller: SegaAppBundle:GameData:getLoadingTips}
+    
+arpg_readonly_init_data:
+    pattern: /stdconnect/read/init_data/{data}
+    defaults: { _controller: SegaAppBundle:GameData:getInitData}
+    
+arpg_readonly_master_data:
+    pattern: /stdconnect/read/master_data/{data}
+    defaults: { _controller: SegaAppBundle:GameData:getMasterData}
+    
+arpg_readonly_mission_list:
+    pattern: /stdconnect/read/mission_list/{data}
+    defaults: { _controller: SegaAppBundle:Mission:list}
+    

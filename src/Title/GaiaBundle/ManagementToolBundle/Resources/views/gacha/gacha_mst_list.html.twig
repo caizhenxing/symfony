@@ -1,0 +1,66 @@
+{% set navigation_active = 'setting' %}
+{% set sidebar_active = 'gacha' %}
+{% set tab_active  = 'gacha_list' %}
+
+{% extends '@GaiaManagementTool/parts/contents.html.twig' %}
+
+{% block main %}
+
+{% set sort_colmn_gacha_id             = constant('Gaia\\Bundle\\ManagementToolBundle\\Dao\\Gacha\\MstGachaDao::SORT_COLMN_GACHA_ID') %}
+{% set sort_colmn_gacha_name           = constant('Gaia\\Bundle\\ManagementToolBundle\\Dao\\Gacha\\MstGachaDao::SORT_COLMN_GACHA_NAME') %}
+{% set sort_colmn_gacha_effective_from = constant('Gaia\\Bundle\\ManagementToolBundle\\Dao\\Gacha\\MstGachaDao::SORT_COLMN_GACHA_EFFECTIVE_FROM') %}
+{% set sort_colmn_gacha_effective_to   = constant('Gaia\\Bundle\\ManagementToolBundle\\Dao\\Gacha\\MstGachaDao::SORT_COLMN_GACHA_EFFECTIVE_TO') %}
+{% set sort_order_asc                  = constant('Gaia\\Bundle\\ManagementToolBundle\\Constant\\Sort::ORDER_ASC') %}
+{% set sort_order_desc                 = constant('Gaia\\Bundle\\ManagementToolBundle\\Constant\\Sort::ORDER_DESC') %}
+
+<form action="{{ path('gacha_mst_list') }}" id="form" method="POST" role="form">
+    <input type="hidden" name="gachaMstSortColmn" value="{{ gachaMstSortColmn }}">
+    <input type="hidden" name="gachaMstSortOrder" value="{{ gachaMstSortOrder }}">
+    <input type="hidden" name="gachaId">
+    <input type="hidden" name="mode">
+
+    <!-- main contents -->
+    <h2>ガチャマスタ一覧<a class="btn" href="javascript:void(0);" onclick="moveGachaPage('{{ path('gacha_mst_edit') }}', 0, -1);"><span class="icon">&#xe614;</span>新規作成</a></h2>
+
+    <table class="table table-striped">
+    <tr>
+    <th width="4%">
+        <a href="javascript:void(0);" class="no_decoration_link" onclick="gachaMstListSortChange({{ sort_colmn_gacha_id }});">ID
+        {% if gachaMstSortColmn == sort_colmn_gacha_id and gachaMstSortOrder == sort_order_asc %}▲
+        {% elseif gachaMstSortColmn == sort_colmn_gacha_id and gachaMstSortOrder == sort_order_desc %}▼
+        {% endif %}
+        </a>
+    </th>
+    <th width="28%">
+        <a href="javascript:void(0);" class="no_decoration_link" onclick="gachaMstListSortChange({{ sort_colmn_gacha_name }});">名称
+        {% if gachaMstSortColmn == sort_colmn_gacha_name and gachaMstSortOrder == sort_order_asc %}▲
+        {% elseif gachaMstSortColmn == sort_colmn_gacha_name and gachaMstSortOrder == sort_order_desc %}▼
+        {% endif %}
+        </a>
+    </th>
+    <th width="8%">編集</th>
+    <th width="16%">グループ一覧</th>
+    </tr>
+
+    {% for mst_gacha in mstGachaList if mstGachaList is defined %}
+    <tr>
+    <!-- ID -->
+    <td>{{ mst_gacha.gacha_id }}</td>
+    <!-- 名称 -->
+    <td>{{ mst_gacha.gacha_name }}</td>
+
+    <td><a href="javascript:void(0);" onclick="moveGachaPage('{{ path('gacha_mst_edit') }}', 1, {{ mst_gacha.gacha_id }});">編集</a></td>
+    <td><a href="javascript:void(0);" onclick="moveGachaPage('{{ path('gacha_group_list') }}', -1, {{ mst_gacha.gacha_id }});">グループ一覧へ</a></td>
+    </tr>
+    {% endfor %}
+    </table>
+
+    {% if 0 < mstGachaList | length %}
+        {% include 'GaiaManagementToolBundle:parts:pager.html.twig' %}
+    {% endif %}
+</form>
+{% endblock %}
+
+{% block resource %}
+<script src="{{ asset('bundles/gaiamanagementtool/js/gacha/gacha_mst_list.js') }}" type="text/javascript" charset="utf-8" ></script>
+{% endblock %}

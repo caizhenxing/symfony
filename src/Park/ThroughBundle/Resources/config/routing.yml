@@ -1,0 +1,28 @@
+walkthrough_homepage:
+    pattern:  /walk/
+    defaults: { _controller: ParkThroughBundle:Default:index }
+
+walkthrough_entities_and_forms:
+    pattern:  /walk/entities-and-forms
+    defaults: { _controller: ParkThroughBundle:Parkthrough:index }
+
+walkthrough_add_user:
+    pattern:  /walk/user/add
+    defaults: { _controller: ParkThroughBundle:User:add }
+
+walkthrough_confirm_user:
+    pattern:  /walk/user/conf
+    defaults: { _controller: ParkThroughBundle:User:conf }
+  
+walkthrough_del_user:
+    pattern:  /walk/user/del/{id}
+    defaults: { _controller: ParkThroughBundle:User:delete } 
+    
+walkthrough_edit_user:
+    pattern: /walk/user/edit/{id}
+    defaults: { _controller: ParkThroughBundle:User:edit}
+
+walkthrough_editOk_user:
+    pattern: /walk/user/edit_ok/
+    defaults: { _controller: ParkThroughBundle:User:editOk}
+    

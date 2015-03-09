@@ -1,0 +1,39 @@
+parameters:
+    # Apollo への接続 URL、必要に応じて上書きしてください
+    gaia.apollo.url : http://for.sb1.api3.apollosys.jp/add
+    
+    # プラットフォームIDパラメータ
+    gaia.apollo.param.platform_ids:
+        default : 3
+        iOS     : 1
+        Android : 2
+        
+    # タイトルIDパラメータ（タイトル側で定義）
+    gaia.apollo.param.title_ids:
+        default : 78
+        iOS     : 78
+        Android : 78
+        
+    # リクエストパラメータ固定値
+    gaia.apollo.param.default:
+        format      : json
+        language    : 0 # 0日 1英 3中簡 4中繁 5韓 6フランス 7ドイツ 8スペイン 9ポルトガル
+        world_name  : 0 
+        device_type : 0
+        value1      : 0
+        
+    # 設定サンプル、必要に応じてタイトル側で上書きしてください
+    # APIレスポンス経由でのApolloログ送信判定
+    # trueの場合 ：全APIレスポンスの情報が送信されます。
+    #            gaia.apollo.api.mappingsに設定されていないリクエストパスの場合、action_type='OTHER'となります。
+    # falseの場合：gaia.apollo.api.mappingsの対象APIのみ送信されます。
+    gaia.apollo.api.is_all_api_send: false
+    
+    # API Caller オプション
+    gaia.apollo.api_caller.options:
+        timeout: 10                            # maximum transport + execution duration of the call in sec.
+        ssl_verifypeer: false                  # to stop cURL from verifying the peer's certificate.
+        useragent: "LeaseWeb API Caller GAIA"  # contents of the "User-Agent: " header.
+        followlocation: true                   # to follow any "Location: " header that the server sends.
+        sslversion: 3                          # set to 3 to avoid any bugs that relate to automatic version selection.
+        fresh_connect: false                   # set to true to force full reconnect every call.

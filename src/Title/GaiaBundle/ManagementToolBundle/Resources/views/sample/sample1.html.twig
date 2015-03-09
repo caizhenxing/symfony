@@ -1,0 +1,12 @@
+{# TODO ManagementTool 独自実装コントローラからレンダリングされる twig を実装してください #}
+
+{% set navigation_active = 'setting' %}
+{% set sidebar_active = 'sample' %}
+{% set tab_active  = 'sample1' %}
+
+{% extends '@GaiaManagementTool/parts/contents.html.twig' %}
+
+{% block main %}
+    <h2>{{ data }}</h2>
+    <h4>SAMPLE</h4>
+{% endblock %}

@@ -1,0 +1,9 @@
+park_crud_homepage:
+    path:  /hello/
+    defaults: { _controller: ParkCrudBundle:Default:index }
+        
+park_crud_new:
+    path: /form/
+    defaults: { _controller: ParkCrudBundle:Default:new }
+    requirements:
+        _method:  GET|POST

@@ -1,0 +1,21 @@
+@CHARSET "UTF-8";
+.arpg_add_btn {
+	background-image: url("images/open_off.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	cursor: pointer;
+}
+.arpg_add_btn:hover {
+	background-image: url("images/open_on.png");
+}
+.arpg_del_btn {
+	background-image: url("images/close_off.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	cursor: pointer;
+}
+.arpg_del_btn:hover {
+	background-image: url("images/close_on.png");
+}

@@ -1,0 +1,120 @@
+{% set body = 'class="single-col"' %}
+{% set navigation_active = 'user_search' %}
+{% set tab_active = 'user_message' %}
+
+{% extends '@GaiaManagementTool/parts/contents.html.twig' %}
+
+{% block main %}
+
+    <h2 class=" mb mt">送信メッセージ一覧<br>ユーザID:{{ user_id }}<a class="btn" href="{{ path('user_message_edit', {'user_id': user_id, 'mes_id': -1, 'sort_colmn':sort_colmn, 'sort_order':sort_order , 'offset': offset }) }}"><span class="icon">&#xe614;</span>新規作成</a></h2>
+
+    {% set sort_id = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\MessageSort::SORT_ID') %}
+    {% set sort_state = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\MessageSort::SORT_STATE') %}
+    {% set sort_type = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\MessageSort::SORT_TYPE') %}
+    {% set sort_from = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\MessageSort::SORT_FROM') %}
+    {% set sort_title = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\MessageSort::SORT_TITLE') %}
+    {% set sort_send = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\MessageSort::SORT_SEND') %}
+    {% set sort_end = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\MessageSort::SORT_END') %}
+    {% set sort_order_asc = constant('Gaia\\Bundle\\ManagementToolBundle\\Constant\\Sort::ORDER_ASC') %}
+    {% set sort_order_desc = constant('Gaia\\Bundle\\ManagementToolBundle\\Constant\\Sort::ORDER_DESC') %}
+    
+    <form action="{{ path('user_message') }}" id="form" method="POST" role="form">
+        <input type="hidden" name="sort_colmn" value="{{ sort_colmn }}">
+        <input type="hidden" name="sort_order" value="{{ sort_order }}">
+        <input type="hidden" name="user_id" value="{{ user_id }}">
+    <table class="table table-striped">
+        <tr>
+        <th width="60px">
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_id }});">ID
+            {% if sort_colmn == sort_id and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_id and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_state }});">状態
+            {% if sort_colmn == sort_state and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_state and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_type }});">タイプ
+            {% if sort_colmn == sort_type and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_type and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_from }});">送信元
+            {% if sort_colmn == sort_from and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_from and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_title }});">タイトル
+            {% if sort_colmn == sort_title and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_title and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_send }});">送信日時
+            {% if sort_colmn == sort_send and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_send and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_end }});">自動削除日時
+            {% if sort_colmn == sort_end and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_end and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a class="no_decoration_link">報酬</a>
+        </th>
+        </tr>
+        {% set now = date('now') %}
+        {% for mes_info in mes_info_list %}
+            <tr>
+                <td>
+                    <a class="no_role_check" href="{{ path('user_message_edit', { 'mes_id': mes_info.id, 'sort_colmn':sort_colmn, 'sort_order':sort_order , 'offset': offset , 'user_id': user_id }) }}" >{{ mes_info.id }}</a>
+                </td>
+                <td class="{{ mes_info.state[1] }}">{{ mes_info.state[0] }}</td>
+                <td class="{{ mes_info.type[1] }}">{{ mes_info.type[0] }}</td>
+                <td>{{ mes_info.from }}</td>
+                <td>{{ mes_info.title }}</td>
+                <td>{{ mes_info.send }}</td>
+                <td {% if date(mes_info.end) < now %}class="box_red"{% endif%}>{{ mes_info.end }}</td>
+                <td>{{ mes_info.reward }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% if 0 < mes_info_list | length %}
+    {% include 'GaiaManagementToolBundle:parts:pager.html.twig' %}
+    {% endif %}
+
+    </form>
+{% endblock %}
+
+
+
+{% block resource %}
+<style>
+	.box_black{
+		color: #000000;
+	}
+	.box_blue{
+		color: #0004b0;
+	}
+	.box_red{
+		color: #b00000;
+	}
+	.box_green{
+		color: #00b036;
+	}
+</style>
+{% endblock %}

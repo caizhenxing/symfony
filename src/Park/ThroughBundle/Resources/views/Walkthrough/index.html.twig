@@ -1,0 +1,26 @@
+{% extends 'ParkThroughBundle::layout.html.twig' %}
+
+{% block title %}
+Symfony2 {{ parent() }}
+{% endblock %}
+
+
+{% block content_header %}
+<h1><strong>USER追加<strong></h1>
+{% endblock %}
+
+{% block content %}
+<ul>
+    <li>
+        <a href="{{path('walkthrough_add_user')}}">-> Add User</a>
+    </li>
+</ul>
+{% endblock %}
+
+{% block footer %}
+<ul>
+    <li>
+        <a href="{{path('walkthrough_homepage')}}">Back to walkthroughs</a>
+    </li>
+</ul>
+{% endblock %}

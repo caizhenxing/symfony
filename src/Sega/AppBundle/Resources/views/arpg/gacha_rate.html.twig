@@ -1,0 +1,32 @@
+{% extends 'SegaAppBundle:arpg:base.html.twig' %}
+{% block body %}
+	{% stylesheets '@SegaAppBundle/Resources/views/arpg/css/gacha_rate.css' %}
+	    <link rel="stylesheet" href="{{ asset_url }}" />
+	{% endstylesheets %}
+	<div class="top_box">{{ top_mes }}</div>
+	{% for rate in rates %}
+		<div class="mid_box">
+			<div class="mid_title">{{rate.name}}</div>
+			{% if rate.single %}
+				<div class="mid_content">
+				{% for r in rate.list1 %}
+					{{r}}<br>
+				{% endfor %}
+				</div>
+			{% else %}
+				<div class="mid_right_content_hr">{{ rate.left_hr }}</div>
+				<div class="mid_content_left">
+				{% for r in rate.list1 %}
+					{{r}}<br>
+				{% endfor %}
+				</div>
+				<div class="mid_content_right">
+				{% for r in rate.list2 %}
+					{{r}}<br>
+				{% endfor %}
+				</div>
+			{% endif %}
+			<p style="clear:both;"></p>
+		</div>
+	{% endfor %}
+{% endblock %}

@@ -1,0 +1,6 @@
+ParkCrudBundle\Entity\Persons:
+    properties:
+        name:
+            - NotBlank: ~
+        job:
+            - NotBlank: ~

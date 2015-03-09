@@ -1,0 +1,77 @@
+{% set body = 'class="single-col"' %}
+{% set navigation_active = 'user_search' %}
+{% set tab_active = 'box_item' %}
+
+{% extends '@GaiaManagementTool/parts/contents.html.twig' %}
+
+{% block main %}
+
+    <h2 class=" mb mt">道具倉庫<br>ユーザID:{{ user_id }}</h2>
+
+    {% set s_id = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\WarehouseSort::STDID') %}
+    {% set s_type = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\WarehouseSort::TYPE') %}
+    {% set s_name = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\WarehouseSort::NAME') %}
+    {% set s_rarity = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\WarehouseSort::RARITY') %}
+    {% set s_num = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\WarehouseSort::NUM') %}
+    
+    {% set sort_order_asc = constant('Gaia\\Bundle\\ManagementToolBundle\\Constant\\Sort::ORDER_ASC') %}
+    {% set sort_order_desc = constant('Gaia\\Bundle\\ManagementToolBundle\\Constant\\Sort::ORDER_DESC') %}
+    
+    <form action="{{ path('box_item') }}" id="form" method="POST" role="form">
+        <input type="hidden" name="sort_colmn" value="{{ sort_colmn }}">
+        <input type="hidden" name="sort_order" value="{{ sort_order }}">
+        <input type="hidden" name="user_id" value="{{ user_id }}">
+    <table class="table table-striped">
+        <tr>
+        <th width="60px">
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ s_id }});">ID
+            {% if sort_colmn == sort_id and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_id and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ s_type }});">タイプ
+            {% if sort_colmn == s_type and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == s_type and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ s_rarity }});">レア度
+            {% if sort_colmn == s_rarity and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == s_rarity and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ s_name }});">名前
+            {% if sort_colmn == s_name and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == s_name and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ s_num }});">数量
+            {% if sort_colmn == s_num and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == s_num and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        </tr>
+        {% for elem in data_list %}
+            <tr>
+                <td>{{ elem.std_id }}</td>
+                <td>{{ elem.type }}</td>
+                <td>{{ elem.rstr }}</td>
+                <td>{{ elem.name }}</td>
+                <td>{{ elem.num }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% if 0 < data_list | length %}
+    {% include 'GaiaManagementToolBundle:parts:pager.html.twig' %}
+    {% endif %}
+
+    </form>
+{% endblock %}

@@ -1,0 +1,27 @@
+
+
+services:
+    Dcs.MaintenanceSchedule:
+        class: Dcs\MaintenanceSchedule
+        scope: prototype
+        arguments: 
+            - %maintenance_schedule.acceput_ips%
+            - %maintenance_schedule.maintenance_file_path%
+            - 21600
+            - @service_container
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+            
+
+parameters:
+    #メンテナンスコントロールの受付を制限するアドレス群（リクエストした環境に依存します）
+    maintenance_schedule.acceput_ips:
+        - "localhost"
+        - "127.0.0.1"
+        - "10.0.2.2"
+            
+    #メンテナンス中かどうかを示すファイルのパス（このフォルダに特定ファイルがある間はメンテナンスとする）デフォルトは/symfony/titlelocal/maintenance
+    maintenance_schedule.maintenance_file_path: "../titlelocal/maintenance"
+        
+            

@@ -1,0 +1,16 @@
+
+sample_security_xor_req:
+    pattern: /sample/security/xor_req/{data}
+    defaults: { _controller: SegaAppBundle:SampleSecurity:xor_req }
+
+sample_security_xor_res:
+    pattern: /sample/security/xor_res/
+    defaults: { _controller: SegaAppBundle:SampleSecurity:xor_res }
+    
+sample_security_rsa_req:
+    pattern: /sample/security/rsa_req/{data}
+    defaults: { _controller: SegaAppBundle:SampleSecurity:rsa_req }
+
+sample_security_rsa_res:
+    pattern: /sample/security/rsa_res/{key}
+    defaults: { _controller: SegaAppBundle:SampleSecurity:rsa_res }

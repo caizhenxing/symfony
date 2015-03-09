@@ -1,0 +1,14 @@
+
+services:
+    Arpg.Logic.CardData:
+        class: Logic\CardData
+        scope: prototype
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.CardData.Addon:
+        class: Logic\CardData\Addon
+        scope: prototype
+        arguments:
+            - @service_container
+            

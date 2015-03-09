@@ -1,0 +1,156 @@
+{% set navigation_active = 'setting' %}
+{% set sidebar_active = 'event' %}
+{% set tab_active  = 'event_dun' %}
+
+{% extends '@GaiaManagementTool/parts/contents.html.twig' %}
+
+{% if app.request.cookies.get('LOGIN_USER_ROLE_READ_ONLY') == '0' %}
+	{% set readonly = '' %}
+{% else %}
+	{% set readonly = 'readonly' %}
+{% endif %}
+
+{% block pre %}
+    <div id="loading"></div>
+{% endblock %}
+
+{% block main %}
+<h2>ダンジョン編集</h2>
+
+{% if errors is not empty %}
+<div class="alert alert-danger">
+    {% for error in errors %}
+        {{ error }}</br>
+    {% endfor %}
+</div>
+{% endif %}
+
+<form action="{{ path('title_dungeon_edit') }}" class="form-group" id="form" method="POST" role="form">
+	<input type="hidden" name="sort_colmn" value="{{ sort_colmn }}">
+	<input type="hidden" name="sort_order" value="{{ sort_order }}">
+	<input type="hidden" name="offset" value="{{ offset }}">
+	
+    <div class="form-group-inner">
+
+        <div class="input-group half-width">
+            <span class="input-group-addon">ID</span>
+            <input type="text" class="form-control" name="dungeon_id" value="{{ dungeon.id }}" readonly>
+        </div>
+        <div class="input-group half-width">
+            <span class="input-group-addon">名前</span>
+            <input type="text" class="form-control" name="dungeon_name" value="{{ dungeon.name }}" readonly>
+        </div>
+        
+        <div class="input-group">
+            <span class="input-group-addon">開始日時</span>
+            <input type="text" class="form-control date parent" name="dungeon_from_date" value="{{ dungeon.from_date }}" maxlength="10" {{ readonly }} >
+            <input type="text" class="form-control time parent" name="dungeon_from_time" value="{{ dungeon.from_time }}" maxlength="8" {{ readonly }} >
+        </div>
+        
+        <div class="input-group">
+            <span class="input-group-addon">終了日時</span>
+            <input type="text" class="form-control date parent" name="dungeon_to_date" value="{{ dungeon.to_date }}" maxlength="10" {{ readonly }} >
+            <input type="text" class="form-control time parent" name="dungeon_to_time" value="{{ dungeon.to_time }}" maxlength="8" {{ readonly }} >
+        </div>
+
+        <div class="input-group half-width" id="multi_list">
+            <span class="input-group-addon w30">開催曜日<br>設定がない場合毎日開催</span>
+            {% for idx,ow in dungeon.open_week %}
+	            <select class="form-control multi_elem" name="dungeon_open_week[{{ idx }}]"  {{ readonly }} >
+		        	<option value="-1" class="tac"></option>
+		            {% for wday,wlabel in week %}
+			            {% if ow == wday %}
+			                <option value="{{ wday }}" class="tac" selected>{{ wlabel }}</option>
+			            {% else %}
+			                <option value="{{ wday }}" class="tac">{{ wlabel }}</option>
+			            {% endif %}
+		            {% endfor %}
+	            </select>
+            {% endfor %}
+            <select class="form-control multi_elem" name="dungeon_open_week[{{ idx }}]"  {{ readonly }} >
+		         <option value="-1" class="tac"></option>
+	            {% for wday,wlabel in week %}
+		            <option value="{{ wday }}" class="tac">{{ wlabel }}</option>
+	            {% endfor %}
+	         </select>
+        </div>
+		
+
+    </div>
+    {% set btn_w = 100 %}
+    {% if app.request.cookies.get('LOGIN_USER_ROLE_READ_ONLY') == '0' %}  
+		{% set btn_w = 50 %}
+    {% endif%}
+
+    <div class="submit">
+        <div class="back" style="width:{{ btn_w}}%;"><a href="javascript:void(0);" onclick="movePage('{{ path('title_dungeon_list', {'sort_colmn':sort_colmn, 'sort_order':sort_order , 'offset': offset }) }}');"><span class="icon">&#xe61a;</span>キャンセル</a></div>
+        {% if app.request.cookies.get('LOGIN_USER_ROLE_READ_ONLY') == '0' %}
+        
+        <div class="button" style="width:{{ btn_w}}%;">
+        	<button type="button" onclick="if(confirm('ダンジョン設定を更新')){this.innerHTML+='<input type=\'hidden\' name=\'action\' value=\'update\'>'; formSubmit('{{ path('title_dungeon_edit') }}');}">
+        		<span class="icon">&#xe61b;</span>更新
+        	</button>
+        </div>
+        {% endif %}
+    </div>
+
+</form>
+<div id="week_selector" style="display:none;">
+	<select class="form-control multi_elem" name="dungeon_open_week[{{ idx }}]"  {{ readonly }} >
+		<option value="-1" class="tac" selected></option>
+		{% for wday,wlabel in week %}
+			<option value="{{ wday }}" class="tac">{{ wlabel }}</option>
+		{% endfor %}
+	</select>
+</div>
+{{ include('TitleManagementToolBundle:util:assets_selector.html.twig') }}
+
+{% endblock %}
+
+
+
+
+
+{% block resource %}
+<style>
+	.multi_elem{
+		cursor: pointer;
+	}
+	.multi_elem:hover{
+		border: 1px solid #2D80A7;
+	}
+	.box_black{
+		color: #000000;
+	}
+	.box_blue{
+		color: #0004b0;
+	}
+	.box_red{
+		color: #b00000;
+	}
+	.box_green{
+		color: #00b036;
+	}
+</style>
+<script type="text/javascript">
+	musi.addLimitEvent(window, "load", function(){
+		var base_elem = musi.parasite(".multi_elem",musi.parasite("#week_selector"));
+		var mlist = musi.parasite("#multi_list");
+		mlist.addEvent("change", function(){
+			var list = musi.parasites(".multi_elem",mlist);
+			var idx = 0;
+			for(var i=0,len=list.length;i<len;++i){
+				var e = list[i];
+				if(e.value() < 0){
+					mlist.removeChild(e);
+					continue;
+				}
+				e.attr("name","dungeon_open_week["+idx+"]");
+				++idx;
+			}
+			var blank = base_elem.clone(true);
+			mlist.appendChild(blank);
+		});
+	}, 1);
+</script>
+{% endblock %}

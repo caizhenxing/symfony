@@ -1,0 +1,3 @@
+sega_app_homepage:
+    pattern:  /debug/{name}
+    defaults: { _controller: SegaAppBundle:Default:index }

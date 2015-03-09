@@ -1,0 +1,14 @@
+
+services:
+    Arpg.Logic.MessageData.Head:
+        class: Logic\MessageData\Head
+        scope: prototype
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.MessageData.Body:
+        class: Logic\MessageData\Body
+        scope: prototype
+        arguments:
+            - @service_container
+            

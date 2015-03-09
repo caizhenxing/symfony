@@ -1,0 +1,3 @@
+arpg_readonly_devparam:
+    pattern: /stdconnect/read/devparam/{data}
+    defaults: { _controller: SegaAppBundle:DevParam:get }

@@ -1,0 +1,9 @@
+# 残りsymfonyパスを書くだけのURLを入れる
+# example:
+# servers:
+#   - http://api.server1/symfony/web/
+#   - http://api.server2/symfony/web/
+#   - http://manage.server/symfony/web/
+servers:
+    - http://localhost/symfony/web/
+

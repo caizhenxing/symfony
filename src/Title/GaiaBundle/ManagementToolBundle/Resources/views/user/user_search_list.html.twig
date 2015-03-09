@@ -1,0 +1,85 @@
+{% set body = 'class="single-col"' %}
+{% set navigation_active = 'user_search' %}
+{% set tab_active = 'user_search' %}
+
+{% extends '@GaiaManagementTool/parts/contents.html.twig' %}
+
+{% block main %}
+
+    <h2 class=" mb mt">ユーザ検索結果一覧</h2>
+
+    {% set sort_colmn_user_id = constant('Gaia\\Bundle\\ManagementToolBundle\\Dao\\User\\UserDataDao::SORT_COLMN_USER_ID') %}
+    {% set sort_colmn_player_id = constant('Title\\GaiaBundle\\ManagementToolBundle\\Dao\\UserDataDao::SORT_COLMN_PLAYER_ID') %}
+    {% set sort_colmn_friend_id = constant('Gaia\\Bundle\\ManagementToolBundle\\Dao\\User\\UserDataDao::SORT_COLMN_FRIEND_ID') %}
+    {% set sort_colmn_take_over_id = constant('Gaia\\Bundle\\ManagementToolBundle\\Dao\\User\\UserDataDao::SORT_COLMN_TAKE_OVER_ID') %}
+    {% set sort_colmn_noah_id = constant('Gaia\\Bundle\\ManagementToolBundle\\Dao\\User\\UserDataDao::SORT_COLMN_NOAH_ID') %}
+    {% set sort_order_asc = constant('Gaia\\Bundle\\ManagementToolBundle\\Constant\\Sort::ORDER_ASC') %}
+    {% set sort_order_desc = constant('Gaia\\Bundle\\ManagementToolBundle\\Constant\\Sort::ORDER_DESC') %}
+    
+    <form action="{{ path('user_list') }}" id="form" method="POST" role="form">
+        
+        <input type="hidden" name="search_type" value="{{ search_type }}">
+        <input type="hidden" name="search_id" value="{{ search_id }}">
+        
+        <input type="hidden" name="sort_colmn" value="{{ sort_colmn }}">
+        <input type="hidden" name="sort_order" value="{{ sort_order }}">
+    <table class="table table-striped">
+        <tr>
+        <th width="60px">
+            <a href="javascript:void(0);" class="no_role_check no_decoration_link" onclick="sortChange({{ sort_colmn_user_id }});">ユーザーID
+            {% if sort_colmn == sort_colmn_user_id and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_colmn_user_id and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_colmn_player_id }});">プレイヤーID
+            {% if sort_colmn == sort_colmn_friend_id and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_colmn_friend_id and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a class="no_decoration_link">アクター名</a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_colmn_friend_id }});">フレンドID
+            {% if sort_colmn == sort_colmn_friend_id and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_colmn_friend_id and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_colmn_take_over_id }});">引継ぎID
+            {% if sort_colmn == sort_colmn_take_over_id and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_colmn_take_over_id and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_colmn_noah_id }});">NoahID
+            {% if sort_colmn == sort_colmn_noah_id and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_colmn_noah_id and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        </tr>
+        {% for user_info in user_info_list %}
+            <tr>
+                <td>
+                    <a class="no_role_check" href="{{ path('user_info', {'user_id': user_info.user_id }) }}" >{{ user_info.user_id }}</a>
+                </td>
+                <td>{{ user_info.iname }}</td>
+                <td>{{ user_info.names }}</td>
+                <td>{{ user_info.public_id }}</td>
+                <td>{{ user_info.take_over_id }}</td>
+                <td>{{ user_info.noah_id }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% if 0 < user_info_list | length %}
+    {% include 'GaiaManagementToolBundle:parts:pager.html.twig' %}
+    {% endif %}
+
+    </form>
+{% endblock %}

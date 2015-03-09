@@ -1,0 +1,89 @@
+{% set navigation_active = 'setting' %}
+{% set sidebar_active = 'event' %}
+{% set tab_active  = 'event_dun' %}
+
+{% extends '@GaiaManagementTool/parts/contents.html.twig' %}
+
+{% block main %}
+    {% set sort_id = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\DungeonSort::SORT_ID') %}
+    {% set sort_name = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\DungeonSort::SORT_NAME') %}
+    {% set sort_from = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\DungeonSort::SORT_FROM') %}
+    {% set sort_to = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\DungeonSort::SORT_TO') %}
+    {% set sort_order_asc = constant('Gaia\\Bundle\\ManagementToolBundle\\Constant\\Sort::ORDER_ASC') %}
+    {% set sort_order_desc = constant('Gaia\\Bundle\\ManagementToolBundle\\Constant\\Sort::ORDER_DESC') %}
+    
+    <form action="{{ path('title_dungeon_list') }}" id="form" method="POST" role="form">
+        <input type="hidden" name="sort_colmn" value="{{ sort_colmn }}">
+        <input type="hidden" name="sort_order" value="{{ sort_order }}">
+    <table class="table table-striped">
+        <tr>
+        <th width="60px">
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_id }});">ID
+            {% if sort_colmn == sort_id and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_id and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_name }});">名前
+            {% if sort_colmn == sort_name and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_name and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_from }});">開始日時
+            {% if sort_colmn == sort_from and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_from and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_to }});">終了日時
+            {% if sort_colmn == sort_to and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_to and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+        	開催曜日
+        </th>
+        </tr>
+        {% for info in datalist %}
+            <tr>
+                <td>
+                    <a class="no_role_check" href="{{ path('title_dungeon_edit', {'std_id': info.std_id, 'sort_colmn':sort_colmn, 'sort_order':sort_order , 'offset': offset }) }}" >{{ info.std_id }}</a>
+                </td>
+                <td>{{ info.title }}</td>
+                <td>{{ info.effective_from }}</td>
+                <td>{{ info.effective_to }}</td>
+                <td>{{ info.open_week }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% if 0 < mes_info_list | length %}
+    {% include 'GaiaManagementToolBundle:parts:pager.html.twig' %}
+    {% endif %}
+
+    </form>
+{% endblock %}
+
+
+
+
+{% block resource %}
+<style>
+	.box_black{
+		color: #000000;
+	}
+	.box_blue{
+		color: #0004b0;
+	}
+	.box_red{
+		color: #b00000;
+	}
+	.box_green{
+		color: #00b036;
+	}
+</style>
+{% endblock %}

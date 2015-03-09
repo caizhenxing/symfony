@@ -1,0 +1,106 @@
+
+services:
+    Arpg.Logic.Util.Equip:
+        class: Logic\Util\Equip
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.Util.StackItem:
+        class: Logic\Util\StackItem
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.Util.PlayerStatus:
+        class: Logic\Util\PlayerStatus
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.Util.ActorStatus:
+        class: Logic\Util\ActorStatus
+        arguments:
+            - @service_container   
+             
+    Arpg.Logic.Util.TakeOver:
+        class: Logic\Util\TakeOver
+        arguments:
+            - @service_container          
+            
+    Arpg.Logic.Util.EquipAddon:
+        class: Logic\Util\EquipAddon
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.Util.EquipAddonType:
+        class: Logic\Util\EquipAddonType
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.Util.EquipSeries:
+        class: Logic\Util\EquipSeries
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.Util.EquipSkill:
+        class: Logic\Util\EquipSkill
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.Util.Text:
+        class: Logic\Util\Text
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.Util.Rarity:
+        class: Logic\Util\Rarity
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.Util.Factory:
+        class: Logic\Util\Factory
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.Util.Gacha:
+        class: Logic\Util\Gacha
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.Util.GameParam:
+        class: Logic\Util\GameParam
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.Util.Quest:
+        class: Logic\Util\Quest
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.Util.Present:
+        class: Logic\Util\Present
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.Util.DevParam:
+        class: Logic\Util\DevParam
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.Util.Collection:
+        class: Logic\Util\Collection
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.Util.Mission:
+        class: Logic\Util\Mission
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.Util.Mail:
+        class: Logic\Util\Mail
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.Util.Effect:
+        class: Logic\Util\Effect
+        arguments:
+            - @service_container

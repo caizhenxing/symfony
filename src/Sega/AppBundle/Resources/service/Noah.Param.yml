@@ -1,0 +1,7 @@
+parameters:
+    # Noah OAuth 情報、必要に応じて上書き設定してください
+    gaia.noah.oauth_param:
+        noah_consumer_key            : APP_902534e15f69f251
+        noah_consumer_secret         : KEY_206534e15f69f2b1
+        noah_android_consumer_key    : APP_484534e17f6ed72d
+        noah_android_consumer_secret : KEY_838534e17f6ed7c5

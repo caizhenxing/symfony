@@ -1,0 +1,75 @@
+---
+parameters:
+    gaia.handler_socket.parameter:
+        host: localhost
+        port: 9998
+        port_wr: 9999
+        dbname: gaia
+        password: ~
+        password_wr: ~
+        timeout: 10
+    gaia_log.handler_socket.parameter:
+        host: localhost
+        port: 9998
+        port_wr: 9999
+        dbname: gaia_log
+        password: ~
+        password_wr: ~
+        timeout: 10
+doctrine:
+    dbal:
+        default_connection: default
+        connections:
+            default:
+                driver: pdo_mysql
+                dbname: gaia
+                host: localhost
+                port: ~
+                user: dcs
+                password: gaia
+                charset: UTF8
+                wrapper_class: ~
+                logging: %kernel.debug%
+                profiling: %kernel.debug%
+            log:
+                driver: pdo_mysql
+                dbname: gaia_log
+                host: localhost
+                port: ~
+                user: dcs
+                password: gaia
+                charset: UTF8
+                wrapper_class: ~
+                logging: %kernel.debug%
+                profiling: %kernel.debug%
+            test:
+                driver: pdo_mysql
+                dbname: gaia_log
+                host: localhost
+                port: ~
+                user: dcs
+                password: gaia_test
+                charset: UTF8
+                wrapper_class: ~
+                logging: %kernel.debug%
+                profiling: %kernel.debug%
+    orm:
+        default_entity_manager: ~
+        auto_generate_proxy_classes: %kernel.debug%
+        proxy_dir: %kernel.cache_dir%/doctrine/orm/Proxies
+        proxy_namespace: Proxies
+        resolve_target_entities: [ ]
+        entity_managers:
+            default:
+                mappings:
+                    SegaAppBundle: ~
+                    ParkCrudBundle: ~
+                    ParkThroughBundle: ~
+            slaves:
+                connection: ~
+                class_metadata_factory_name: Doctrine\ORM\Mapping\ClassMetadataFactory
+                default_repository_class: Doctrine\ORM\EntityRepository
+                mappings:
+                    SegaAppBundle: ~
+                    ParkCrudBundle: ~
+                    ParkThroughBundle: ~

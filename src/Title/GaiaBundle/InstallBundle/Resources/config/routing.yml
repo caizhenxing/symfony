@@ -1,0 +1,7 @@
+gaia_install_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: GaiaInstallBundle:Default:index }
+
+gaia_install_check:
+    pattern:  /install/check
+    defaults: { _controller: GaiaInstallBundle:Check:dbaccess }

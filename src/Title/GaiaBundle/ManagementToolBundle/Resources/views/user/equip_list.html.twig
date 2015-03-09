@@ -1,0 +1,136 @@
+{% set body = 'class="single-col"' %}
+{% set navigation_active = 'user_search' %}
+{% set tab_active = 'box_equip' %}
+
+{% extends '@GaiaManagementTool/parts/contents.html.twig' %}
+
+{% block main %}
+
+    <h2 class=" mb mt">装備倉庫<br>ユーザID:{{ user_id }}</h2>
+
+    {% set s_id = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\WarehouseSort::ID') %}
+    {% set s_type = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\WarehouseSort::TYPE') %}
+    {% set s_name = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\WarehouseSort::NAME') %}
+    {% set s_rarity = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\WarehouseSort::RARITY') %}
+    {% set s_lv = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\WarehouseSort::LV') %}
+    {% set s_exp = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\WarehouseSort::EXP') %}
+    {% set s_evo = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\WarehouseSort::EVO') %}
+    {% set s_atk = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\WarehouseSort::ATK') %}
+    {% set s_matk = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\WarehouseSort::MATK') %}
+    {% set s_def = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\WarehouseSort::DEF') %}
+    {% set s_mdef = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\WarehouseSort::MDEF') %}
+    {% set s_date = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\WarehouseSort::CREATE') %}
+    {% set s_state = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\WarehouseSort::STATE') %}
+    {% set s_lock = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\WarehouseSort::LOCK') %}
+    
+    {% set sort_order_asc = constant('Gaia\\Bundle\\ManagementToolBundle\\Constant\\Sort::ORDER_ASC') %}
+    {% set sort_order_desc = constant('Gaia\\Bundle\\ManagementToolBundle\\Constant\\Sort::ORDER_DESC') %}
+    
+    <form action="{{ path('box_equip') }}" id="form" method="POST" role="form">
+        <input type="hidden" name="sort_colmn" value="{{ sort_colmn }}">
+        <input type="hidden" name="sort_order" value="{{ sort_order }}">
+        <input type="hidden" name="user_id" value="{{ user_id }}">
+    <table class="table table-striped">
+        <tr>
+        <th width="60px">
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ s_id }});">ID
+            {% if sort_colmn == sort_id and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_id and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ s_state }});">状態
+            {% if sort_colmn == s_state and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == s_state and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ s_type }});">タイプ
+            {% if sort_colmn == s_type and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == s_type and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ s_rarity }});">レア度
+            {% if sort_colmn == s_rarity and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == s_rarity and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ s_name }});">名前
+            {% if sort_colmn == s_name and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == s_name and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ s_lv }});">LV
+            {% if sort_colmn == s_lv and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == s_lv and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ s_exp }});">経験値
+            {% if sort_colmn == s_exp and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == s_exp and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ s_evo }});">進化
+            {% if sort_colmn == s_evo and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == s_evo and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ s_date }});">生成日
+            {% if sort_colmn == s_date and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == s_date and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ s_lock }});">ロック
+            {% if sort_colmn == s_lock and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == s_lock and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        </tr>
+        {% for elem in data_list %}
+            <tr>
+                <td>{{ elem.id }}</td>
+                <td>
+                {% if elem.state == 1 %}
+                	<span style="color: #a00000;"><span class="icon">&#xe624;</span>削除済</span>
+                {% elseif elem.state == 2 %}
+                	<span style="color: #00a01a;">プレボ内</span>
+                {% elseif elem.state == 3 %}
+                	<span style="color: #93a000;">プレボ外</span>
+                {% else %}
+                	倉庫内
+                {% endif %}
+                </td>
+                <td>{{ elem.type }}</td>
+                <td>{{ elem.rstr }}</td>
+                <td>{{ elem.name }}</td>
+                <td>{{ elem.level }}</td>
+                <td>{{ elem.exp }}</td>
+                <td>{{ elem.evo }}</td>
+                <td>{{ elem.create_date }}</td>
+                <td>{% if elem.lock == 0 %}Unlock{% else %}<span class="icon">&#xe61c;</span>Lock{% endif %}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% if 0 < data_list | length %}
+    {% include 'GaiaManagementToolBundle:parts:pager.html.twig' %}
+    {% endif %}
+
+    </form>
+{% endblock %}

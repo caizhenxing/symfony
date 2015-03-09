@@ -1,0 +1,109 @@
+{% set sidebar_active = 'edit_log' %}
+{% set navigation_active = 'setting' %}
+{% set local_js = 'bundles/titlemanagementtool/js/' ~ ljs %}
+
+{% extends '@GaiaManagementTool/parts/contents.html.twig' %}
+
+{% block main %}
+
+    <h2 class=" mb mt">編集ログ一覧</h2>
+
+    {% set sort_id = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\EditLogSort::ID') %}
+    {% set sort_user = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\EditLogSort::USER') %}
+    {% set sort_tag = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\EditLogSort::TAG') %}
+    {% set sort_mes = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\EditLogSort::MES') %}
+    {% set sort_date = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\EditLogSort::DATE') %}
+    {% set sort_order_asc = constant('Gaia\\Bundle\\ManagementToolBundle\\Constant\\Sort::ORDER_ASC') %}
+    {% set sort_order_desc = constant('Gaia\\Bundle\\ManagementToolBundle\\Constant\\Sort::ORDER_DESC') %}
+    
+    <form action="{{ path('title_edit_log') }}" id="form" method="POST" role="form">
+        <input type="hidden" name="sort_colmn" value="{{ sort_colmn }}">
+        <input type="hidden" name="sort_order" value="{{ sort_order }}">
+    <table class="table table-striped">
+        <tr>
+        <th></th>
+        <th width="60px">
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_id }});">ID
+            {% if sort_colmn == sort_id and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_id and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_user }});">ユーザ
+            {% if sort_colmn == sort_user and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_user and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_tag }});">タグ
+            {% if sort_colmn == sort_tag and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_tag and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            メッセージ
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_date }});">実行日時
+            {% if sort_colmn == sort_date and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_date and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        </tr>
+    
+        <tr style="font-size: 12px;">
+            <td style="white-space: nowrap;">
+            <button type="button" style="height: 22px;font-size: 10px;padding: 0px 2px;" onclick="formSubmit('{{ path('title_edit_log') }}');">
+        		<span style="font-size: 12px;vertical-align: -1px;width: 15px;" class="icon">&#xe68f;</span>フィルター
+        	</button></td>
+            <td>
+                <input type="text" class="form-control filt" name="filt_id" value="{{ filt_id }}">
+            </td>
+            <td>
+                <input type="text" class="form-control filt" name="filt_name" value="{{ filt_name }}">
+            </td>
+            <td>
+                <input type="text" class="form-control filt" name="filt_tag" value="{{ filt_tag }}">
+            </td>
+            <td>
+                <input type="text" class="form-control filt" name="filt_mes" value="{{ filt_mes }}">
+            </td>
+            <td>
+                <input type="text" class="form-control filt" name="filt_date" value="{{ filt_date }}">
+            </td>
+        </tr>
+        
+        {% for mes_info in mes_info_list %}
+            <tr>
+            	<td></td>
+                <td>{{ mes_info.id }}</td>
+                <td>{{ mes_info.name }}</td>
+                <td>{{ mes_info.tag }}</td>
+                <td style="white-space: pre;">{{ mes_info.mes }}</td>
+                <td>{{ mes_info.date }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% if 0 < mes_info_list | length %}
+    {% include 'GaiaManagementToolBundle:parts:pager.html.twig' %}
+    {% endif %}
+
+    </form>
+{% endblock %}
+
+
+
+
+{% block resource %}
+<style>
+	.filt{
+		height: 25px;
+		padding: 0px;
+		font-size: 10px;
+	}
+</style>
+{% endblock %}

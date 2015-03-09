@@ -1,0 +1,140 @@
+{% set navigation_active = 'setting' %}
+{% set sidebar_active = 'event' %}
+{% set tab_active  = 'event_drop' %}
+
+{% extends '@GaiaManagementTool/parts/contents.html.twig' %}
+
+{% block main %}
+    {% set sort_id = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\EventDropSort::ID') %}
+    {% set sort_did = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\EventDropSort::DID') %}
+    {% set sort_rank = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\EventDropSort::RANK') %}
+    {% set sort_eid = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\EventDropSort::EID') %}
+    {% set sort_tbox = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\EventDropSort::TBOX') %}
+    {% set sort_rate = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\EventDropSort::RATE') %}
+    {% set sort_gid = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\EventDropSort::GID') %}
+    {% set sort_from = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\EventDropSort::FROM') %}
+    {% set sort_to = constant('Title\\GaiaBundle\\ManagementToolBundle\\Constant\\EventDropSort::TO') %}
+    {% set sort_order_asc = constant('Gaia\\Bundle\\ManagementToolBundle\\Constant\\Sort::ORDER_ASC') %}
+    {% set sort_order_desc = constant('Gaia\\Bundle\\ManagementToolBundle\\Constant\\Sort::ORDER_DESC') %}
+    
+    <h2 class=" mb mt"><a class="btn" href="{{ path('title_event_drop_edit', {'id': -1, 'sort_colmn':sort_colmn, 'sort_order':sort_order , 'offset': offset }) }}"><span class="icon">&#xe614;</span>新規作成</a><br></h2>
+    <form action="{{ path('title_event_drop_list') }}" id="form" method="POST" role="form">
+        <input type="hidden" name="sort_colmn" value="{{ sort_colmn }}">
+        <input type="hidden" name="sort_order" value="{{ sort_order }}">
+    <table class="table table-striped">
+        <tr>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_id }});">ID
+            {% if sort_colmn == sort_id and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_id and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_did }});">ダンジョン指定
+            {% if sort_colmn == sort_did and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_did and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_rank }});">敵ランク指定
+            {% if sort_colmn == sort_rank and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_rank and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_eid }});">敵指定
+            {% if sort_colmn == sort_eid and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_eid and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_tbox }});">排出宝箱
+            {% if sort_colmn == sort_tbox and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_tbox and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_rate }});">排出確率
+            {% if sort_colmn == sort_rate and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_rate and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_gid }});">ガチャID
+            {% if sort_colmn == sort_gid and sort_order == sort_order_asc %}▲
+            {% elseif sort_colmn == sort_gid and sort_order == sort_order_desc %}▼
+            {% endif %}
+            </a>
+        </th>
+        <th>
+            <div style="width:100%;">
+	            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_from }});">開始日時
+	            {% if sort_colmn == sort_from and sort_order == sort_order_asc %}▲
+	            {% elseif sort_colmn == sort_from and sort_order == sort_order_desc %}▼
+	            {% endif %}
+	            </a>
+           	</div>
+           	<div style="background-color: rgba(0,0,0,0.05);width:100%;">
+	            <a href="javascript:void(0);" class="no_decoration_link" onclick="sortChange({{ sort_to }});">終了日時
+	            {% if sort_colmn == sort_to and sort_order == sort_order_asc %}▲
+	            {% elseif sort_colmn == sort_to and sort_order == sort_order_desc %}▼
+	            {% endif %}
+	            </a>
+            </div>
+        </th>
+        </tr>
+        
+        {% for info in datalist %}
+            <tr>
+                <td>
+                    <a class="no_role_check" href="{{ path('title_event_drop_edit', {'id': info.id, 'sort_colmn':sort_colmn, 'sort_order':sort_order , 'offset': offset }) }}" >{{ info.id }}</a>
+                </td>
+                <td>{{ info.label_did }}</td>
+                <td>{{ info.label_rank }}</td>
+                <td>{{ info.label_eid }}</td>
+                <td>{{ info.label_tbox }}</td>
+                <td>{{ info.rate }}%</td>
+                <td>{{ info.label_gid }}</td>
+                <td>
+                	<div style="width:100%;">
+                		{{ info.effective_from }}
+                	</div>
+                	<div style="background-color: rgba(0,0,0,0.05);width:100%;">
+                		{{ info.effective_to }}
+                	</div>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% if 0 < mes_info_list | length %}
+    {% include 'GaiaManagementToolBundle:parts:pager.html.twig' %}
+    {% endif %}
+
+    </form>
+{% endblock %}
+
+
+
+
+{% block resource %}
+<style>
+	.box_black{
+		color: #000000;
+	}
+	.box_blue{
+		color: #0004b0;
+	}
+	.box_red{
+		color: #b00000;
+	}
+	.box_green{
+		color: #00b036;
+	}
+</style>
+{% endblock %}

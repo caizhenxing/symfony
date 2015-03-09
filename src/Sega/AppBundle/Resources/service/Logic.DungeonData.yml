@@ -1,0 +1,14 @@
+
+services:
+    Arpg.Logic.DungeonData.Result:
+        class: Logic\DungeonData\Result
+        scope: prototype
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.DungeonData.Bonus:
+        class: Logic\DungeonData\Bonus
+        scope: prototype
+        arguments:
+            - @service_container
+            

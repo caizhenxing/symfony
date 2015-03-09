@@ -1,0 +1,43 @@
+{% extends 'ParkThroughBundle::layout.html.twig' %}
+{% block title %}
+TEST SYMFONY  {{ parent() }}
+{% endblock %}
+{% block content_header %}
+<h1>Confirm USERS</h1>
+{% endblock %}
+{% block content %}
+<table class="records_list tabl">
+ <thead>
+    <tr>
+    <th>Id</th><td>&nbsp<td> 
+    <th>Group</th><td>&nbsp<td> 
+    <th>LastName</th><td>&nbsp<td> 
+    <th>FirstName</th><td>&nbsp<td> 
+    <th>MiddleName</th><td>&nbsp<td> 
+    <th>Edit</th><td>&nbsp<td> 
+    <th>Delete</th>
+    </tr>
+ </thead>
+ <tbody>
+{% for user in users %}
+        <tr>
+		<td>{{ user.getId()  }}</td><td>&nbsp<td> 
+		<td>{{ user.getGroup() }}</td><td>&nbsp<td> 
+		<td>{{ user.getLastName() }}</td><td>&nbsp<td> 
+		<td>{{ user.getFirstName()}}</td><td>&nbsp<td> 
+		<td>{{ user.getMiddleName() }}</td><td>&nbsp<td> 
+		<td><a href="{{ path('walkthrough_edit_user',{'id':  user.getId() }) }}">Edit</a></td><td>&nbsp<td> 
+		<td><a href="{{ path('walkthrough_del_user', {'id':  user.getId() }) }}">Delete</a></td>
+        </tr>
+{% endfor %}
+ </tbody>
+</table>
+{% endblock %}
+
+{% block footer %}
+<ul>
+    <li>
+        <a href="{{path('walkthrough_add_user')}}"><- Back</a>
+    </li>
+</ul>
+{% endblock %}

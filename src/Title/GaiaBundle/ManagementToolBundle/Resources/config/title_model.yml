@@ -1,0 +1,6 @@
+services:
+# TODO ManagementTool タイトル側で実装したモデルを呼び出すようにモデルを追加してください
+    gaia.mng_tool.dao.user.user_data:
+         class: Title\GaiaBundle\ManagementToolBundle\Dao\UserDataDao
+         arguments:
+             - @doctrine.dbal.default_connection

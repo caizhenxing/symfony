@@ -1,0 +1,8 @@
+
+services:
+    gaia.dao.gacha.mst_gacha:
+        class: Sega\AppBundle\hack\MstGachaDao
+        arguments:
+            - @doctrine.dbal.default_connection
+            - @Dcs.Cache
+            

@@ -1,0 +1,16 @@
+services:
+# TODO ManagementTool タイトル側で実装したサービスを呼び出すようにサービスを上書きしてください
+    gaia.mng_tool.service.user_data:
+        class: Title\GaiaBundle\ManagementToolBundle\Service\UserDataService
+        arguments:
+             - @gaia.mng_tool.dao.user.user_data
+             - @service_container
+             
+    gaia.mng_tool.controller.user_takeover:
+        class: Title\GaiaBundle\ManagementToolBundle\Controller\UserTakeoverController
+        calls:
+            - [setContainer, [@service_container]]
+            - [setTabMenu,   [{user: %gaia.mng_tool.view_parameters.tab.user_setting%, admin: %gaia.mng_tool.view_parameters.tab.user_setting% }]]
+        arguments:
+            - @gaia.mng_tool.model.admin_action_certificate
+

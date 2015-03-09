@@ -1,0 +1,10 @@
+
+services:
+    noah_service_filter:
+        class: Logic\NoahService\NoahServiceFilter
+
+    Dcs.Noah:
+        class: Dcs\Noah
+        scope: prototype
+        arguments:
+            - @noah_service_filter

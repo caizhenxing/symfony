@@ -1,0 +1,9 @@
+{% if errors is empty %}
+    GAIAインストール済みSymfonyパッケージのインストールが成功しました。
+{% else %}
+    <div class="alert alert-danger">
+        {% for error in errors %}
+            {{ error }}<br/>
+        {% endfor %}
+    </div>
+{% endif %}

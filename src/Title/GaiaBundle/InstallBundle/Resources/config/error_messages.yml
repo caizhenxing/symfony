@@ -1,0 +1,4 @@
+parameters:
+    title.gaia.install.error_messages:
+        DBACCESS:
+            NOTFOUND: '{0}テーブルが見つかりませんでした。'

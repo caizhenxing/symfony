@@ -1,0 +1,15 @@
+services:
+# TODO ManagementTool タイトル側で実装したサービスを呼び出すようにサービスを追加してください
+#    title_management_tool.example:
+#        class: %title_management_tool.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+    
+    title.mng_tool.service.assets_selector:
+        class: Title\GaiaBundle\ManagementToolBundle\Service\AssetsSelector
+        arguments:
+            - @gaia.mng_tool.model.asset_master
+            
+    title.mng_tool.log:
+        class: Title\GaiaBundle\ManagementToolBundle\Service\Log
+        arguments:
+            - @service_container

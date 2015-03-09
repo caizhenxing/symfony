@@ -1,0 +1,219 @@
+
+arpg_readwrite_entry_player_name:
+    pattern: /stdconnect/write/entry_player_name/{data}
+    defaults: { _controller: SegaAppBundle:PlayerState:rename }
+    
+arpg_readwrite_begin_dungeon:
+    pattern: /stdconnect/write/begin_dungeon/{data}
+    defaults: { _controller: SegaAppBundle:QuestData:beginDungeon }
+
+arpg_readwrite_end_dungeon:
+    pattern: /stdconnect/write/end_dungeon/{data}
+    defaults: { _controller: SegaAppBundle:QuestData:endDungeon }
+    
+arpg_readwrite_open_kbox:
+    pattern: /stdconnect/write/open_kbox/{data}
+    defaults: { _controller: SegaAppBundle:QuestData:openKbox }
+    
+arpg_readwrite_try_train:
+    pattern: /stdconnect/write/try_train/{data}
+    defaults: { _controller: SegaAppBundle:Train:tryTrain }
+    
+arpg_readwrite_try_evolution:
+    pattern: /stdconnect/write/try_evolution/{data}
+    defaults: { _controller: SegaAppBundle:Train:tryEvolution }
+    
+arpg_readwrite_try_addon:
+    pattern: /stdconnect/write/try_addon/{data}
+    defaults: { _controller: SegaAppBundle:Train:tryAddon }
+    
+arpg_readwrite_try_factory:
+    pattern: /stdconnect/write/try_factory/{data}
+    defaults: { _controller: SegaAppBundle:Factory:tryFactory }
+    
+arpg_readwrite_cancel_factory:
+    pattern: /stdconnect/write/cancel_factory/{data}
+    defaults: { _controller: SegaAppBundle:Factory:cancelFactory }
+    
+arpg_readwrite_complete_factory:
+    pattern: /stdconnect/write/complete_factory/{data}
+    defaults: { _controller: SegaAppBundle:Factory:completeFactory }
+    
+arpg_readwrite_upgrade_factory:
+    pattern: /stdconnect/write/upgrade_factory/{data}
+    defaults: { _controller: SegaAppBundle:Factory:upgradeFactory }
+    
+arpg_readwrite_use_spirit:
+    pattern: /stdconnect/write/use_spirit/{data}
+    defaults: { _controller: SegaAppBundle:Factory:useSpirit }
+    
+arpg_readwrite_try_equip:
+    pattern: /stdconnect/write/try_equip/{data}
+    defaults: { _controller: SegaAppBundle:Equip:tryEquip }
+    
+arpg_readwrite_try_gacha:
+    pattern: /stdconnect/write/try_gacha/{data}
+    defaults: { _controller: SegaAppBundle:GachaData:tryGacha }
+    
+arpg_readwrite_try_friend_req:
+    pattern: /stdconnect/write/try_friend_req/{data}
+    defaults: { _controller: SegaAppBundle:Friend:tryRequest }
+    
+arpg_readwrite_try_friend_cancel:
+    pattern: /stdconnect/write/try_friend_cancel/{data}
+    defaults: { _controller: SegaAppBundle:Friend:tryCancel }
+    
+arpg_readwrite_try_friend_del:
+    pattern: /stdconnect/write/try_friend_del/{data}
+    defaults: { _controller: SegaAppBundle:Friend:tryDelete }
+    
+arpg_readwrite_try_friend_admit:
+    pattern: /stdconnect/write/try_friend_admit/{data}
+    defaults: { _controller: SegaAppBundle:Friend:tryAdmit }
+    
+arpg_readwrite_try_friend_reject:
+    pattern: /stdconnect/write/try_friend_reject/{data}
+    defaults: { _controller: SegaAppBundle:Friend:tryReject }
+    
+arpg_readwrite_create_dungeon_and_room:
+    pattern: /stdconnect/write/create_dungeon_and_room/{data}
+    defaults: { _controller: SegaAppBundle:Matching:createDAR }
+    
+arpg_readwrite_create_matching_room:
+    pattern: /stdconnect/write/create_matching_room/{data}
+    defaults: { _controller: SegaAppBundle:Matching:createRoom }
+    
+arpg_readwrite_remind_matching_room:
+    pattern: /stdconnect/write/remind_matching_room/{data}
+    defaults: { _controller: SegaAppBundle:Matching:remind }
+    
+arpg_readwrite_remind_current_room:
+    pattern: /stdconnect/write/remind_current_room/{data}
+    defaults: { _controller: SegaAppBundle:Matching:remindCurrent }
+    
+arpg_readwrite_send_action_invite:
+    pattern: /stdconnect/write/send_action_invite/{data}
+    defaults: { _controller: SegaAppBundle:Matching:sendInvite }
+    
+arpg_readwrite_sell_item:
+    pattern: /stdconnect/write/sell_item/{data}
+    defaults: { _controller: SegaAppBundle:Equip:sellItem }
+    
+arpg_readwrite_sell_card:
+    pattern: /stdconnect/write/sell_card/{data}
+    defaults: { _controller: SegaAppBundle:Equip:sellCard }
+    
+arpg_readwrite_set_msg_setting_preset_msgs:
+    pattern: /stdconnect/write/set_msg_setting_preset_msgs/{data}
+    defaults: { _controller: SegaAppBundle:BBS:setPresetMessage }
+    
+arpg_readwrite_accepts_all_present_box_items:
+    pattern: /stdconnect/write/accepts_all_present_box_items/{data}
+    defaults: { _controller: SegaAppBundle:Present:acceptAllPresent }
+    
+arpg_readwrite_accepts_one_present_box_item:
+    pattern: /stdconnect/write/accepts_one_present_box_item/{data}
+    defaults: { _controller: SegaAppBundle:Present:acceptPresent }
+    
+arpg_readwrite_request_eq_warehouse_expanding:
+    pattern: /stdconnect/write/request_eq_warehouse_expanding/{data}
+    defaults: { _controller: SegaAppBundle:PlayerState:expandeWarehouse }
+    
+arpg_readwrite_accept_messages:
+    pattern: /stdconnect/write/accept_messages/{data}
+    defaults: { _controller: SegaAppBundle:Message:updateMes }
+    
+arpg_readwrite_accept_missions:
+    pattern: /stdconnect/write/accept_missions/{data}
+    defaults: { _controller: SegaAppBundle:Mission:accept }
+    
+arpg_readwrite_login_bonus:
+    pattern: /stdconnect/write/login_bonus/{data}
+    defaults: { _controller: SegaAppBundle:PlayerState:loginBonus}
+    
+arpg_readwrite_write_tutorial_step:
+    pattern: /stdconnect/write/write_tutorial_step/{data}
+    defaults: { _controller: SegaAppBundle:PlayerState:setTutorialStep}
+    
+arpg_readwrite_entry_new_actor:
+    pattern: /stdconnect/write/entry_new_actor/{data}
+    defaults: { _controller: SegaAppBundle:PlayerState:newActor}
+    
+arpg_readwrite_set_user_comment:
+    pattern: /stdconnect/write/set_user_comment/{data}
+    defaults: { _controller: SegaAppBundle:PlayerState:setComment}
+    
+arpg_readwrite_set_msg_setting_autowords:
+    pattern: /stdconnect/write/set_msg_setting_autowords/{data}
+    defaults: { _controller: SegaAppBundle:BBS:setAutoWord}
+    
+arpg_readwrite_set_current_actor:
+    pattern: /stdconnect/write/set_current_actor/{data}
+    defaults: { _controller: SegaAppBundle:PlayerState:setCurrentActor}
+    
+arpg_readwrite_del_actor:
+    pattern: /stdconnect/write/del_actor/{data}
+    defaults: { _controller: SegaAppBundle:PlayerState:deleteActor}
+    
+arpg_readwrite_trade_item:
+    pattern: /stdconnect/write/trade_item/{data}
+    defaults: { _controller: SegaAppBundle:Trade:trade}
+    
+arpg_readwrite_recover_stamina:
+    pattern: /stdconnect/write/recover_stamina/{data}
+    defaults: { _controller: SegaAppBundle:PlayerState:recoverStamina}
+    
+arpg_readwrite_chat_create:
+    pattern: /stdconnect/write/chat_create/{data}
+    defaults: { _controller: SegaAppBundle:BBS:createThread}
+    
+arpg_readwrite_chat_add_member:
+    pattern: /stdconnect/write/chat_add_member/{data}
+    defaults: { _controller: SegaAppBundle:BBS:addChatMember}
+    
+arpg_readwrite_chat_exit:
+    pattern: /stdconnect/write/chat_exit/{data}
+    defaults: { _controller: SegaAppBundle:BBS:exitChat}
+    
+arpg_readwrite_chat_post:
+    pattern: /stdconnect/write/chat_post/{data}
+    defaults: { _controller: SegaAppBundle:BBS:postChat}
+    
+arpg_readwrite_bg_batch:
+    pattern: /stdconnect/write/bg_batch/{data}
+    defaults: { _controller: SegaAppBundle:GameData:bgBatch}
+    
+arpg_readwrite_request_friend_slot_expanding:
+    pattern: /stdconnect/write/request_friend_slot_expanding/{data}
+    defaults: { _controller: SegaAppBundle:Friend:extend}
+    
+arpg_readwrite_use_boost_item:
+    pattern: /stdconnect/write/use_boost_item/{data}
+    defaults: { _controller: SegaAppBundle:PlayerState:useBoost}
+    
+arpg_readwrite_iine:
+    pattern: /stdconnect/write/iine/{data}
+    defaults: { _controller: SegaAppBundle:QuestData:iine}
+    
+arpg_readwrite_takeover_offer:
+    pattern: /stdconnect/write/takeover_offer/{data}
+    defaults: { _controller: SegaAppBundle:TakeOver:offer}
+    
+arpg_readwrite_takeover_accept:
+    pattern: /stdconnect/write/takeover_accept/{data}
+    defaults: { _controller: SegaAppBundle:TakeOver:accept}
+    
+arpg_readwrite_set_mail:
+    pattern: /stdconnect/write/set_mail/{data}
+    defaults: { _controller: SegaAppBundle:PlayerState:setMail}
+    
+arpg_readwrite_set_equip_lock:
+    pattern: /stdconnect/write/set_equip_lock/{data}
+    defaults: { _controller: SegaAppBundle:Equip:setLock}
+    
+arpg_readwrite_mission_complete:
+    pattern: /stdconnect/write/mission_complete/{data}
+    defaults: { _controller: SegaAppBundle:Mission:complete}
+    
+    
+    

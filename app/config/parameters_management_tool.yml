@@ -1,0 +1,12 @@
+# ManagementToolBundleに関連するパラメータを定義します。
+parameters:
+
+    # セッションの有効期限（秒数で指定）
+    # TODO 4-1-1 セッションの有効期限を設定してください
+    gaia_mng_tool_session_life_time: 7200 #120 分
+
+    # TODO 4-1-2 タイトルの値に変更してください
+    gaia_mng_tool_web_title:    'フォルティシア'
+    gaia_mng_tool_web_subtitle: 'マネージメントツール'
+    gaia_mng_tool_web_top_path: manage_account_list
+

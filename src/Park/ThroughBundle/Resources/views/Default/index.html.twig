@@ -1,0 +1,19 @@
+{% extends 'ParkThroughBundle::layout.html.twig' %}
+
+{% block title %}
+{{ parent() }}
+{% endblock %}
+
+{% block content_header %}
+<h1>SYMFONY TEST-Park</h1>
+{% endblock %}
+
+{% block content %}
+<p>ユーザーの追加、削除、編集</p>
+<ul>
+    <li>
+        <a href="{{path('walkthrough_entities_and_forms')}}">CLICK</a>
+    </li>
+</ul>
+{% endblock %}
+

@@ -1,0 +1,13 @@
+
+dcs_maintenance_management_recive_start:
+    pattern: /dcs/maintenance/start
+    defaults: { _controller: SegaAppBundle:MaintenanceManagementRecive:start }
+
+dcs_maintenance_management_recive_finish:
+    pattern: /dcs/maintenance/finish
+    defaults: { _controller: SegaAppBundle:MaintenanceManagementRecive:finish }
+
+dcs_maintenance_management_recive_clean_apc:
+    pattern: /dcs/maintenance/clean_apc
+    defaults: { _controller: SegaAppBundle:MaintenanceManagementRecive:cleanApc }
+    

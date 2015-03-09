@@ -1,0 +1,28 @@
+parameters:
+    # nullを指定するとそのままエラーログを使用する %%date%%をYmdに置換する
+    #dcs.log.save_path: '/var/log/dcs/dcs_%%date%%.log'
+    dcs.log.save_path: '%kernel.root_dir%/logs/dcs_%%date%%.log'
+    #dcs.log.save_path: null
+    # input     output
+    # <date>    2014-12-02 12:10:05.122     ミリ秒までの日付
+    # <lv>      Verbose                     ログ出力レベル
+    # <uid>     312232                      ユーザーID
+    # <cui>     100023-3045-192.168.1.1     1コネクションでユニークなID
+    # <route>   test_read                   Symfonyルート
+    # <micro>   1417402652383287            マイクロ秒
+    # <log>     this is output              ユーザーから入力された文字列
+    dcs.log.format: '[<date> <micro>] <lv> (uid:<uid>) [<cni>] [<route>] <log>'
+    # 出力が少ない順に
+    # none,error,warning,info,debug,verbose
+    # これ以外が設定された場合、noneとして扱う
+    dcs.log.level: debug
+    
+services:
+    Dcs.Log:
+        class: Dcs\Log
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+        arguments:
+            - %dcs.log.save_path%
+            - %dcs.log.format%
+            - %dcs.log.level%

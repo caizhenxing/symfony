@@ -1,0 +1,47 @@
+services:
+    Dcs.Cache:
+        class: Dcs\Cache
+        arguments:
+            - @service_container
+            
+    Dcs.ActionLog:
+        class: Dcs\ActionLog
+        arguments:
+            - @service_container
+
+    
+    # ハンドラソケットサービス
+    dcs.handler_socket.default_connection:
+        class         : Dcs\Service\HandlerSocketService
+        factory_class : Dcs\HandlerSocketServiceFactory
+        factory_method: create
+        arguments:
+            - %gaia.handler_socket.parameter%
+            
+    # Masterオンリーハンドラソケットサービス
+    dcs.handler_socket.master_connection:
+        class         : Dcs\Service\HandlerSocketService
+        factory_class : Dcs\HandlerSocketServiceFactory
+        factory_method: create
+        arguments:
+            - %gaia.handler_socket.parameter%
+            - true
+            
+    # LOG用ハンドラソケットサービス
+    gaia_log.handler_socket.default_connection:
+        class         : Gaia\Bundle\HandlerSocketBundle\Service\HandlerSocketService
+        factory_class : Gaia\Bundle\HandlerSocketBundle\Service\HandlerSocketServiceFactory
+        factory_method: create
+        arguments:
+            - %gaia_log.handler_socket.parameter%
+            - @logger
+            - @?debug.stopwatch=
+
+
+    Dcs.RequestTimerEvent:
+        class: Dcs\RequestTimerEvent
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+            - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
+
+            

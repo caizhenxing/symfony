@@ -1,0 +1,8 @@
+
+dcs_login:
+    pattern: /dcs/login/{data}
+    defaults: { _controller: SegaAppBundle:CmnAccount:login }
+
+dcs_create_account:
+    pattern: /dcs/create_account/{data}
+    defaults: { _controller: SegaAppBundle:CmnAccount:createaccount }

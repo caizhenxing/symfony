@@ -1,0 +1,90 @@
+{% set body = 'class="single-col"' %}
+{% set navigation_active = 'user_search' %}
+{% set tab_active = 'user_info' %}
+
+{% extends '@GaiaManagementTool/parts/contents.html.twig' %}
+{% if app.request.cookies.get('LOGIN_USER_ROLE_READ_ONLY') == '0' %}
+	{% set readonly = '' %}
+{% else %}
+	{% set readonly = 'readonly' %}
+{% endif %}
+
+{% block pre %}
+    <div id="loading"></div>
+{% endblock %}
+
+
+{% block main %}
+<h2 class=" mb mt">ユーザID：{{ user_id }}</h2>
+
+{% if errors is not empty %}
+<div class="alert alert-danger">
+    {% for error in errors %}
+        {{ error }}</br>
+    {% endfor %}
+</div>
+{% endif %}
+
+<form action="{{ path('user_info') }}" class="form-group" id="form" method="POST" role="form">
+<input type="hidden" name="user_id" value="{{ user_id }}">
+<table class="table table-striped">
+    {% for key, value in values %}
+    <tr>
+    	{% if value.link is null %}
+	        <th width="25%">{{ key }}</th>
+	    {% else %}
+	        <th width="25%">
+	        <a class="no_role_check" href="{{ path(value.link[0], value.link[1]) }}" >{{ key }}</a>
+	        </th>
+	    {% endif %}
+        <td width="75%">
+        	{% set vdata = value.val%}
+        	{% if vdata is iterable %}
+        		{% for vl in vdata %}
+        			<div>{{ vl }}</div>
+        		{% endfor %}
+        	{% else %}
+        		{{ vdata }}
+        	{% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+	{% for value in status %}
+	<tr>
+		<th width="25%">{{ value[2] }}</th>
+		<td width="75%">
+		{% if value[3] == 0 %}
+			<input type="text" class="form-control" style="width:50%;" name="{{ value[0] }}" value="{{ value[4] }}" {{ readonly }} >
+		{% elseif value[3] == 1 %}
+			
+            <input type="text" class="form-control date parent" style="display:inline;" name="{{ value[0] }}_date" value="{{ value[4] }}" maxlength="10" {{ readonly }} >
+            <input type="text" class="form-control time parent" style="display:inline;" name="{{ value[0] }}_time" value="{{ value[5] }}" maxlength="8" {{ readonly }} >
+		{% else %}
+			<select class="form-control parent" name="{{ value[0] }}"  {{ readonly }} >
+			{% for v,l in value[3] %}
+				{% if l is iterable %}
+					{% set olabel = l[0] %}
+					{% set ostyle = l[1] %}
+				{% else %}
+					{% set olabel = l %}
+					{% set ostyle = '' %}
+				{% endif %}
+	    		<option value="{{ v }}" class="tac bopt" style="{{ ostyle }}" {% if v == value[4] %}selected{% endif %}>{{ olabel }}</option>
+	    	{% endfor %}
+		    </select>
+		{% endif %}
+		</td>
+	</tr>
+	{% endfor %}
+</table>
+<div class="submit">
+	{% if app.request.cookies.get('LOGIN_USER_ROLE_READ_ONLY') == '0' %}
+		<div class="button">
+			<button type="button" onclick="if(confirm('ユーザーを更新します')){this.innerHTML+='<input type=\'hidden\' name=\'action\' value=\'update\'>'; formSubmit('{{ path('user_info') }}');}">
+				<span class="icon">&#xe61b;</span>更新
+			</button>
+		</div>
+    {% endif %}
+</div>
+</form>
+{% endblock %}

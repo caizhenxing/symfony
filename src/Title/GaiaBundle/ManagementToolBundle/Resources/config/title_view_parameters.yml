@@ -1,0 +1,54 @@
+parameters:
+# TODO ManagementTool タイトル独自メニューを（ナビゲーション or サイドバー or タブ に）追加してください
+# iconの設定値について
+# 前提1. icoMoonというアイコンフォントを使用して表示いております。
+# 前提2. アイコンフォントファイルは既にGaiaの管理ツールにありますので、そちらから使用するアイコンを選んで下さい。
+# 以下、アイコンの追加手順について
+# 1. 右記URLにアクセスします。http://icomoon.io/app/#/select
+# 2. 画面左上のImportIconsボタンをクリック
+# 3. vendor\gaia\src\Gaia\Bundle\ManagementToolBundle\Resources\public\fonts\icomoon.svgを選択
+# 4. icomoonの枠内に表示されているアイコンが使用できるアイコンとなりますので、
+#    使用したいアイコンをクリック(枠が黄色にになる)してFontをクリック
+# 5. アイコンのフォントがUnicodeで e610 等と表示されているので、実際に使用する場合は先頭に&#xを付けて
+#    '&#xe610;' といった値を下記のサイドバー、タブメニュー定義する際の icon:にセットしてください。
+# 6. 以上で指定したアイコンが管理画面上に表示されます。
+
+# タブメニュー(新規作成)
+    gaia.mng_tool.view_parameters.navigation:
+        - { tag: setting        , path: manage_account_list     , icon: '&#xe602;', name: システム設定 }
+        - { tag: user_search    , path: user_search             , icon: '&#xe601;', name: ユーザ設定 }
+        - { tag: maintenance    , path: maintenance_information_list, icon: '&#xe641;', name: メンテナンス設定 }
+        - { tag: logout         , path: logout                  , icon: '&#xe603;', name: ログアウト }
+        
+    sample.tab_menu:
+        - { tag: sample1 , path: sample_path_1 , name: 'サンプルメニュー １' }
+        - { tag: sample2 , path: sample_path_2 , name: 'サンプルメニュー ２' }
+    
+    title.tab.gacha:
+        - { tag: gacha_shop , path: gacha_shop_list , name: 'ガチャショップメニュー' }
+        - { tag: gacha_list , path: gacha_mst_list , name: 'ガチャ内容リスト' }
+    
+    title.tab.event:
+        - { tag: event_dun      , path: title_dungeon_list        , name: 'ダンジョン' }
+        - { tag: event_drop     , path: title_event_drop_list     , name: 'ドロップ' }
+        - { tag: event_trade    , path: title_event_trade_list    , name: '交換所' }
+        - { tag: event_shop     , path: title_event_shop_list     , name: '受取所' }
+    
+    
+    gaia.mng_tool.view_parameters.tab.user_search:
+        - { tag: user_search        , path: user_search         , name: ユーザ検索 }
+#        - { tag: all_user_item_fill , path: all_user_item_fill  , name: 全ユーザアイテム補填 , write_role: true }
+        - { tag: ban                , path: user_ban_list       , name: 停止アカウント一覧 }
+        
+    gaia.mng_tool.view_parameters.tab.user_setting:
+        - { tag: user_search        , path: user_search         , name: ユーザ検索 }
+        - { tag: user_info      , path: user_info               , name: ユーザ情報 }
+        - { tag: box_equip      , path: box_equip               , name: 装備倉庫 }
+        - { tag: box_item      , path: box_item               , name: 道具倉庫 }
+        - { tag: user_friend_list, path: user_friend_list       , name: フレンド一覧 }
+        - { tag: manual_order_registration , path: user_android_manual_order_registration , name: Android課金アイテム手動付与  , write_role: true }
+        - { tag: user_log       , sub_menu: %gaia.mng_tool.view_parameters.sub_menu.user_log% , name: 履歴}
+        - { tag: user_takeover  , path: user_takeover           , name: 引き継ぎ        , write_role: true }
+        - { tag: user_message , path: user_message          , name: メッセージ  }
+        - { tag: user_collect   , sub_menu: %gaia.mng_tool.view_parameters.sub_menu.user_collect% , name: 回収}
+        - { tag: ban_person     , path: user_ban_person         , name: アカウント停止  , write_role: true }

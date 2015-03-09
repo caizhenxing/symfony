@@ -1,0 +1,7 @@
+
+services:
+    Arpg.Logic.ItemData:
+        class: Logic\ItemData
+        scope: prototype
+        arguments:
+            - @service_container

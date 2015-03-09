@@ -1,0 +1,23 @@
+services:
+    Dcs.CommandLogger:
+        class: Dcs\CommandLogger
+        arguments:
+            - DcsCommandLogger
+        calls:
+            - [pushHandler, ["@Dcs.CommandLogger.CustomStreamHandler"]]
+    
+    Dcs.CommandLogger.CustomStreamHandler:
+        class: Monolog\Handler\StreamHandler
+        arguments:
+            # 出力先ファイルパス
+            - %kernel.logs_dir%/%kernel.environment%_command.log
+        calls:
+            - [setFormatter, ["@Dcs.CommandLogger.CustomFormatter"]]
+
+    Dcs.CommandLogger.CustomFormatter:
+        class: Monolog\Formatter\LineFormatter
+        arguments:
+            - "[%%datetime%%] %%level_name%% %%message%%\n"
+# デフォルトのformatはこれ
+#           - "[%%datetime%%] %%channel%%.%%level_name%%: %%message%% %%context%% %%extra%%\n"
+

@@ -1,0 +1,132 @@
+{% set body = 'class="single-col"' %}
+{% set navigation_active = 'user_search' %}
+{% set tab_active = 'user_info' %}
+
+{% extends '@GaiaManagementTool/parts/contents.html.twig' %}
+{% if app.request.cookies.get('LOGIN_USER_ROLE_READ_ONLY') == '0' %}
+	{% set readonly = '' %}
+{% else %}
+	{% set readonly = 'readonly' %}
+{% endif %}
+
+
+{% block pre %}
+    <div id="loading"></div>
+{% endblock %}
+
+{% block main %}
+<h2 class=" mb mt">ユーザID：{{ user_id }}<br>アクターID: {{ actor_id }}</h2>
+
+{% if errors is not empty %}
+<div class="alert alert-danger">
+    {% for error in errors %}
+        {{ error }}</br>
+    {% endfor %}
+</div>
+{% endif %}
+
+<form action="{{ path('actor_info_path') }}" class="form-group" id="form" method="POST" role="form">
+<input type="hidden" name="user_id" value="{{ user_id }}">
+<input type="hidden" name="actor_id" value="{{ actor_id }}">
+<table class="table table-striped">
+	{% for key, value in param %}
+	<tr>
+		<th width="25%">{{ key }}</th>
+		<td width="75%">
+			{% if value is iterable %}
+				{% for vl in value %}
+					<div>{{ vl }}</div>
+				{% endfor %}
+			{% else %}
+				{{ value }}
+			{% endif %}
+		</td>
+	</tr>
+	{% endfor %}
+	{% for value in status %}
+	<tr>
+		<th width="25%">{{ value[2] }}</th>
+		<td width="75%">
+			<select class="form-control parent" name="{{ value[0] }}"  {{ readonly }} >
+			{% for v,l in value[3] %}
+				{% if l is iterable %}
+					{% set olabel = l[0] %}
+					{% set ostyle = l[1] %}
+				{% else %}
+					{% set olabel = l %}
+					{% set ostyle = '' %}
+				{% endif %}
+	    		<option value="{{ v }}" class="tac bopt" style="{{ ostyle }}" {% if v == value[4] %}selected{% endif %}>{{ olabel }}</option>
+	    	{% endfor %}
+		    </select>
+		</td>
+	</tr>
+	{% endfor %}
+</table>
+
+<div class="submit">
+	<div class="back" style="width:30%;"><a href="javascript:void(0);" onclick="movePage('{{ path('user_info', {'user_id': user_id }) }}');"><span class="icon">&#xe61a;</span>キャンセル</a></div>
+	{% if app.request.cookies.get('LOGIN_USER_ROLE_READ_ONLY') == '0' %}
+	   
+		<div class="button" style="width:30%;">
+		{% if mode == 0 %}
+			<button class="btn_red" style=" border-radius:0px;" type="button" onclick="if(confirm('アクターを削除します')){this.innerHTML+='<input type=\'hidden\' name=\'action\' value=\'delete\'>'; formSubmit('{{ path('actor_info_path') }}');}">
+			<span class="icon">&#xe618;</span>削除
+			</button>
+		{% else %}
+			<button class="btn_green" style=" border-radius:0px;" type="button" onclick="if(confirm('アクターを復帰します')){this.innerHTML+='<input type=\'hidden\' name=\'action\' value=\'restore\'>'; formSubmit('{{ path('actor_info_path') }}');}">
+			<span class="icon">&#xe619;</span>復帰
+			</button>
+		{% endif %}
+		</div>
+		<div class="button" style="width:30%;">
+			<button type="button" onclick="if(confirm('アクターを更新します')){this.innerHTML+='<input type=\'hidden\' name=\'action\' value=\'update\'>'; formSubmit('{{ path('actor_info_path') }}');}">
+				<span class="icon">&#xe61b;</span>更新
+			</button>
+		</div>
+    {% endif %}
+</div>
+</form>
+{% endblock %}
+
+
+{% block resource %}
+<style>
+	.submit div .btn_red{
+		background-color: #a72d2d;
+	}
+	.submit div .btn_red:hover{
+		background-color: #2b363c;
+	}
+	.submit div .btn_green{
+		background-color: #86a72d;
+	}
+	.submit div .btn_green:hover{
+		background-color: #2b363c;
+	}
+</style>
+<script>
+(new function(){
+	var copyChildStyle = function(){
+		this.style = "";
+		for(var i in this.childNodes){
+			var node = this.childNodes[i];
+			if(node.value === undefined) continue;
+			if(this.value == node.value){
+				for(var j in node.style){
+					if(typeof(node.style[j]) == "string")
+						this.style[j] = node.style[j];
+				}
+				break;
+			}
+		}
+	};
+	var list = document.querySelectorAll("select");
+	for(var i=0,len=list.length;i<len;++i){
+		var node = list[i];
+		node.onchange = copyChildStyle;
+		copyChildStyle.apply(node);
+	}
+});
+</script>
+{% endblock %}

@@ -1,0 +1,13 @@
+
+services:
+    Dcs.JmeterRequest:
+        class: Logic\Jmeter\RequestLogic
+        arguments:
+            - @service_container
+            
+    Dcs.Jmeter:
+        class: Dcs\Jmeter
+        arguments:
+            - @service_container
+        tags:
+            - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }

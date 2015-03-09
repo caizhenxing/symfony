@@ -1,0 +1,38 @@
+parameters:
+    Dcs.AtomInviteService.Url:
+        invite_create: https://pre.sega-net.jp/external/inviteCreate
+        invite_check : https://pre.sega-net.jp/external/inviteCheck
+        register_code: https://pre.sega-net.jp/external/registerCheck
+        campaign_code: https://pre.sega-net.jp/external/startCodeCheck
+
+services:
+    Dcs.AtomServiceFilter:
+        class: Logic\AtomService\AtomServiceFilter
+
+    # gaia.atom.service をextends拡張したサービス
+    Dcs.AtomInviteService:
+        class: Dcs\AtomInviteService
+        arguments:
+          - @event_dispatcher
+          - @gaia.atom.api_caller
+          - @logger
+          - %Dcs.AtomInviteService.Url%
+
+    # gaia.campaign.atom_campaign_service をextends拡張したサービス
+    Dcs.AtomInviteCampaignService:
+        class: Dcs\AtomInviteCampaignService
+        arguments:
+          - @Dcs.AtomInviteService    # @gaia_atom_service から上書き
+          - @gaia.user.user_service
+          - @gaia.dao.campaign.mst_atom_campaign
+          - @gaia.dao.campaign.mst_atom_campaign_present
+          - @gaia.dao.campaign.mst_invite_campaign
+          - @gaia.dao.campaign.mst_invite_campaign_present
+          - @gaia.dao.campaign.atom_campaign_used_history
+          - @gaia.dao.campaign.invite_data
+          - @gaia.dao.campaign.user_invite
+          - @logger
+
+          - @doctrine
+          - @gaia.user.user_service
+

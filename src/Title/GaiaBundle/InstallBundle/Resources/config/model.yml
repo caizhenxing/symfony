@@ -1,0 +1,6 @@
+services:
+
+    title.gaia.install.model.databasecheck:
+        class: Title\GaiaBundle\InstallBundle\Model\DatabaseCheckModel
+        arguments:
+            - @gaia.dao.user.user_account

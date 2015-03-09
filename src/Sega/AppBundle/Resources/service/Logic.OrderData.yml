@@ -1,0 +1,20 @@
+
+services:
+    Arpg.Logic.OrderData.Train:
+        class: Logic\OrderData\Train
+        scope: prototype
+        arguments:
+            - @service_container
+
+    Arpg.Logic.OrderData.Evo:
+        class: Logic\OrderData\Evo
+        scope: prototype
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.OrderData.Addon:
+        class: Logic\OrderData\Addon
+        scope: prototype
+        arguments:
+            - @service_container
+            

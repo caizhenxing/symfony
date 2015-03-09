@@ -1,0 +1,157 @@
+{% set sidebar_active = 'all_user_message' %}
+{% set navigation_active = 'setting' %}
+{% set local_js = 'bundles/titlemanagementtool/js/' ~ ljs %}
+
+{% extends '@GaiaManagementTool/parts/contents.html.twig' %}
+
+{% if app.request.cookies.get('LOGIN_USER_ROLE_READ_ONLY') == '0' %}
+	{% set readonly = '' %}
+{% else %}
+	{% set readonly = 'readonly' %}
+{% endif %}
+
+{% block pre %}
+    <div id="loading"></div>
+{% endblock %}
+
+{% block main %}
+
+{% set mode_str = '登録' %}
+{% if mode == 1 %}
+    {% set mode_str = '編集' %}
+{% endif %}
+
+<h2>全送信メッセージ{{ mode_str }}</h2>
+
+{% if errors is not empty %}
+<div class="alert alert-danger">
+    {% for error in errors %}
+        {{ error }}</br>
+    {% endfor %}
+</div>
+{% endif %}
+
+<form action="{{ path('all_user_message_edit') }}" class="form-group" id="form" method="POST" role="form">
+    <input type="hidden" name="mode" value="{{ mode }}">
+	<input type="hidden" name="sort_colmn" value="{{ sort_colmn }}">
+	<input type="hidden" name="sort_order" value="{{ sort_order }}">
+	<input type="hidden" name="offset" value="{{ offset }}">
+	
+    <div class="form-group-inner">
+
+        {% if mode == 1 %}
+        <div class="input-group half-width">
+            <span class="input-group-addon">メッセージID</span>
+            <input type="text" class="form-control" name="mes_id" value="{{ mes_info.id }}" readonly>
+        </div>
+        {% endif %}
+
+        <div class="input-group">
+            <span class="input-group-addon w30">タイプ</span>
+            <select class="form-control parent" name="mestype"  {{ readonly }} >
+            {% for type_id,type_name in types %}
+	            {% if mes_info.type == type_id %}
+	                <option value="{{ type_id }}" class="tac" selected>{{ type_name }}</option>
+	            {% else %}
+	                <option value="{{ type_id }}" class="tac">{{ type_name }}</option>
+	            {% endif %}
+            {% endfor %}
+            </select>
+            <select class="form-control parent" name="mesdel"  {{ readonly }} >
+	            {% if mes_info.del == 0 %}
+	                <option value="0" class="tac" selected>削除不可</option>
+	                <option value="1" class="tac">削除可能</option>
+	            {% else %}
+	                <option value="1" class="tac" selected>削除可能</option>
+	                <option value="0" class="tac">削除不可</option>
+	            {% endif %}
+            </select>
+        </div>
+        
+        <div class="input-group half-width">
+            <span class="input-group-addon">送信元</span>
+            <input type="text" class="form-control" name="mesfrom" value="{{ mes_info.from }}" {{ readonly }} >
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">タイトル</span>
+            <input type="text" class="form-control" name="mestitle" value="{{ mes_info.title }}" {{ readonly }} >
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">メッセージ</span>
+            <textarea name="message" class="form-control" rows="8" {{ readonly }} >{{ mes_info.message }}</textarea>
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-addon">送信日</span>
+            <input type="text" class="form-control date parent" name="senddate" value="{{ mes_info.send_date }}" maxlength="10" {{ readonly }} >
+            <input type="text" class="form-control time parent" name="sendtime" value="{{ mes_info.send_time }}" maxlength="8" {{ readonly }} >
+        </div>
+        
+        <div class="input-group">
+            <span class="input-group-addon">自動削除日</span>
+            <input type="text" class="form-control date parent" name="enddate" value="{{ mes_info.end_date }}" maxlength="10" {{ readonly }} >
+            <input type="text" class="form-control time parent" name="endtime" value="{{ mes_info.end_time }}" maxlength="8" {{ readonly }} >
+        </div>
+
+        <div class="input-group assets-form">
+            <span class="input-group-addon">添付アイテム</span>
+            <select class="form-control parent assets-type" name="rewtype" init="{{ mes_info.reward_type }}"  {{ readonly }} ></select>
+            <select class="form-control child assets-item" name="rewitem" init="{{ mes_info.reward_item }}" {{ readonly }} ></select>
+        </div>
+        <div class="input-group half-width">
+            <span class="input-group-addon">数量</span>
+            <input type="text" name="rewnum" id="quantity" class="form-control" value="{{ mes_info.num }}" maxlength="10" {{ readonly }} >
+        </div>
+
+    </div>
+    {% set btn_w = 100 %}
+    {% if app.request.cookies.get('LOGIN_USER_ROLE_READ_ONLY') == '0' %}        
+		{% set btn_w = 50 %}
+	    {% if mode == 1 %}
+			{% set btn_w = 32 %}
+	    {% endif %}
+    {% endif%}
+
+    <div class="submit">
+        <div class="back" style="width:{{ btn_w}}%;"><a href="javascript:void(0);" onclick="movePage('{{ path('all_user_message', {'sort_colmn':sort_colmn, 'sort_order':sort_order , 'offset': offset }) }}');"><span class="icon">&#xe61a;</span>キャンセル</a></div>
+        {% if app.request.cookies.get('LOGIN_USER_ROLE_READ_ONLY') == '0' %}
+        
+        {% if mode == 1 %}
+        <div class="button" style="width:{{ btn_w}}%;">
+        	<button class="btn_red" style=" border-radius:0px;" type="button" onclick="if(confirm('メッセージを削除します')){this.innerHTML+='<input type=\'hidden\' name=\'action\' value=\'delete\'>'; formSubmit('{{ path('all_user_message_edit') }}');}">
+        		<span class="icon">&#xe618;</span>削除
+        	</button>
+        </div>
+        {% endif %}
+        <div class="button" style="width:{{ btn_w}}%;">
+        	<button type="button" onclick="if(confirm('メッセージを{{ mode_str }}します')){this.innerHTML+='<input type=\'hidden\' name=\'action\' value=\'update\'>'; formSubmit('{{ path('all_user_message_edit') }}');}">
+        		<span class="icon">&#xe61b;</span>{{ mode_str }}
+        	</button>
+        </div>
+        {% endif %}
+    </div>
+
+</form>
+{{ include('TitleManagementToolBundle:util:assets_selector.html.twig') }}
+
+{% endblock %}
+
+
+
+{% block resource %}
+<style>
+	.submit div .btn_red{
+		background-color: #a72d2d;
+	}
+	.submit div .btn_red:hover{
+		background-color: #2b363c;
+	}
+	.submit div .btn_green{
+		background-color: #86a72d;
+	}
+	.submit div .btn_green:hover{
+		background-color: #2b363c;
+	}
+</style>
+
+{% endblock %}

@@ -1,0 +1,96 @@
+services:
+
+# TODO ManagementTool タイトル側で実装したコントローラをサービスに登録してください
+        
+    sample.mng_tool.controller.user_info:
+        class: Title\GaiaBundle\ManagementToolBundle\Controller\SampleUserInfoController
+        calls:
+            - [setContainer, [@service_container]]
+            - [setTabMenu,     [{user: %gaia.mng_tool.view_parameters.tab.user_setting%, admin: %gaia.mng_tool.view_parameters.tab.user_setting% }]]
+
+    sample.mng_tool.controller.title_origin:
+        class: Title\GaiaBundle\ManagementToolBundle\Controller\SampleTitleOriginController
+        calls:
+            - [setContainer, [@service_container]]
+            - [setSideMenu,    [{user: %gaia.mng_tool.view_parameters.sidebar.user%, admin: %gaia.mng_tool.view_parameters.sidebar.admin%}]]
+            - [setTabMenu,     [{user: %sample.tab_menu%, admin: %sample.tab_menu% }]]
+        
+    title.mng_tool.controller.server_info:
+        class: Title\GaiaBundle\ManagementToolBundle\Controller\ServerInfoController
+        calls:
+            - [setContainer, [@service_container]]
+            - [setSideMenu,    [{user: %gaia.mng_tool.view_parameters.sidebar.user%, admin: %gaia.mng_tool.view_parameters.sidebar.admin%}]]
+
+    title.mng_tool.controller.user_info:
+        class: Title\GaiaBundle\ManagementToolBundle\Controller\UserInfoController
+        calls:
+            - [setContainer, [@service_container]]
+            - [setTabMenu,     [{user: %gaia.mng_tool.view_parameters.tab.user_setting%, admin: %gaia.mng_tool.view_parameters.tab.user_setting% }]]
+
+    title.mng_tool.controller.action_log:
+        class: Title\GaiaBundle\ManagementToolBundle\Controller\ActionLogController
+        calls:
+            - [setContainer, [@service_container]]
+            - [setTabMenu,     [{user: %gaia.mng_tool.view_parameters.tab.user_setting%, admin: %gaia.mng_tool.view_parameters.tab.user_setting% }]]
+
+
+    title.mng_tool.controller.all_user_message:
+        class: Title\GaiaBundle\ManagementToolBundle\Controller\AllUserMessageController
+        calls:
+            - [setContainer, [@service_container]]
+            - [setSideMenu,    [{user: %gaia.mng_tool.view_parameters.sidebar.user%, admin: %gaia.mng_tool.view_parameters.sidebar.admin%}]]
+
+    title.mng_tool.controller.edit_log:
+        class: Title\GaiaBundle\ManagementToolBundle\Controller\EditLogController
+        calls:
+            - [setContainer, [@service_container]]
+            - [setSideMenu,    [{user: %gaia.mng_tool.view_parameters.sidebar.user%, admin: %gaia.mng_tool.view_parameters.sidebar.admin%}]]
+
+
+    title.mng_tool.controller.user_message:
+        class: Title\GaiaBundle\ManagementToolBundle\Controller\UserMessageController
+        calls:
+            - [setContainer, [@service_container]]
+            - [setTabMenu,     [{user: %gaia.mng_tool.view_parameters.tab.user_setting%, admin: %gaia.mng_tool.view_parameters.tab.user_setting% }]]
+    
+    title.mng_tool.controller.actor_info:
+        class: Title\GaiaBundle\ManagementToolBundle\Controller\ActorInfoController
+        calls:
+            - [setContainer, [@service_container]]
+            - [setTabMenu,     [{user: %gaia.mng_tool.view_parameters.tab.user_setting%, admin: %gaia.mng_tool.view_parameters.tab.user_setting% }]]
+        
+    title.mng_tool.controller.warehouse:
+        class: Title\GaiaBundle\ManagementToolBundle\Controller\WarehouseController
+        calls:
+            - [setContainer, [@service_container]]
+            - [setTabMenu,     [{user: %gaia.mng_tool.view_parameters.tab.user_setting%, admin: %gaia.mng_tool.view_parameters.tab.user_setting% }]]
+        
+    title.mng_tool.controller.gacha.card_set:
+        class: Title\GaiaBundle\ManagementToolBundle\Controller\GachaCardSetController
+        calls:
+            - [setContainer, [@service_container]]
+            - [setSideMenu,    [{user: %gaia.mng_tool.view_parameters.sidebar.user%, admin: %gaia.mng_tool.view_parameters.sidebar.admin%}]]
+            - [setTabMenu,     [{user: %title.tab.gacha%, admin: %title.tab.gacha% }]]
+        
+    title.mng_tool.controller.event:
+        class: Title\GaiaBundle\ManagementToolBundle\Controller\EventController
+        calls:
+            - [setContainer, [@service_container]]
+            - [setSideMenu,    [{user: %gaia.mng_tool.view_parameters.sidebar.user%, admin: %gaia.mng_tool.view_parameters.sidebar.admin%}]]
+            - [setTabMenu,     [{user: %title.tab.event%, admin: %title.tab.event% }]]
+        
+# HACK
+    gaia.mng_tool.controller.user_search:
+        class: Title\GaiaBundle\ManagementToolBundle\Controller\UserSearchController
+        calls:
+            - [setContainer, [@service_container]]
+            - [setTabMenu,     [{user: %gaia.mng_tool.view_parameters.tab.user_search%, admin: %gaia.mng_tool.view_parameters.tab.user_search% }]]
+
+    gaia.mng_tool.controller.user_list:
+        class: Title\GaiaBundle\ManagementToolBundle\Controller\UserSearchListController
+        calls:
+            - [setContainer, [@service_container]]
+            - [setTabMenu,     [{user: %gaia.mng_tool.view_parameters.tab.user_search%, admin: %gaia.mng_tool.view_parameters.tab.user_search% }]]
+
+    
+            

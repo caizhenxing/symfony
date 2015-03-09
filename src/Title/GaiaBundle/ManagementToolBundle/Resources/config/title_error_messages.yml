@@ -1,0 +1,9 @@
+# TODO ManagementTool タイトル側で表示したいメッセージを登録してください
+parameters:
+    title.mng_tool.error_messages:
+        COMMON:
+            SAMPLE: 'タイトル独自 共通サンプルメッセージです。'
+        AAAA:
+            SAMPLE: 'タイトル独自 テスト用サンプルメッセージです。'
+        OTHER:
+            SAMPLE: 'タイトル独自 その他サンプルメッセージです。'

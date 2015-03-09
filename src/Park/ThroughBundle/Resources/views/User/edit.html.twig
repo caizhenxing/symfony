@@ -1,0 +1,23 @@
+{% extends 'ParkThroughBundle::layout.html.twig' %}
+{% block title %}
+TEST SYMFONY{{ parent() }}
+{% endblock %}
+{% block content_header %}
+<h1>Edit USER</h1>
+{% endblock %} 
+{% block content %}
+    <tr>
+		<form action="" method="post" {{ form_enctype(form) }}>
+			{{form_widget(form, { 'attr': {'class': 'AddUserForm'}})}}
+			<input type="submit" />
+		</form>
+    <tr>
+{% endblock %}
+
+{% block footer %}
+<ul>
+    <li>
+        <a href="{{path('walkthrough_confirm_user')}}"><- Back</a>
+    </li>
+</ul>
+{% endblock %}

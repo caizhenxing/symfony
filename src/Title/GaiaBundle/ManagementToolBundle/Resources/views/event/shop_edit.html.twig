@@ -1,0 +1,224 @@
+{% set navigation_active = 'setting' %}
+{% set sidebar_active = 'event' %}
+{% set tab_active  = 'event_shop' %}
+
+{% extends '@GaiaManagementTool/parts/contents.html.twig' %}
+
+{% if app.request.cookies.get('LOGIN_USER_ROLE_READ_ONLY') == '0' %}
+	{% set readonly = '' %}
+{% else %}
+	{% set readonly = 'readonly' %}
+{% endif %}
+
+{% block pre %}
+    <div id="loading"></div>
+{% endblock %}
+
+{% block main %}
+{% set mode_str = '登録' %}
+{% if mode == 1 %}
+    {% set mode_str = '編集' %}
+{% endif %}
+
+<h2>{{ mode_str }}</h2>
+
+{% if errors is not empty %}
+<div class="alert alert-danger">
+    {% for error in errors %}
+        {{ error }}</br>
+    {% endfor %}
+</div>
+{% endif %}
+
+<form action="{{ path('title_event_trade_edit') }}" class="form-group" id="form" method="POST" role="form">
+    <input type="hidden" name="mode" value="{{ mode }}">
+	<input type="hidden" name="sort_colmn" value="{{ sort_colmn }}">
+	<input type="hidden" name="sort_order" value="{{ sort_order }}">
+	<input type="hidden" name="offset" value="{{ offset }}">
+	
+    <div class="form-group-inner">
+
+        <div class="input-group half-width">
+            <span class="input-group-addon">カテゴリ</span>
+            <input type="text" class="form-control" name="cat" value="{{ info.cat }}" {{ readonly }}>
+        </div>
+        <div class="input-group half-width">
+            <span class="input-group-addon">カテゴリ内優先度</span>
+            <input type="text" class="form-control" name="pri" value="{{ info.pri }}" {{ readonly }}>
+        </div>
+        <div class="input-group half-width">
+            <span class="input-group-addon">ID</span>
+            <input type="text" class="form-control" name="id" value="{{ info.stdid }}" readonly>
+        </div>
+		
+        <div class="input-group">
+            <span class="input-group-addon">タイトル</span>
+            <input type="text" class="form-control" name="title" value="{{ info.title }}"  {{ readonly }} />
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">詳細</span>
+            <textarea type="text" class="form-control" name="info"  {{ readonly }} >{{ info.info }}</textarea>
+        </div>
+        <div class="input-group half-width">
+            <span class="input-group-addon">表示モード</span>
+            <select class="form-control" name="display" id="disp_mode" {{ readonly }}>
+            {% for idx,label in displays %}
+	            {% if info.display == idx %}
+	                <option value="{{ idx }}" class="tac" selected>{{ label }}</option>
+	            {% else %}
+	                <option value="{{ idx }}" class="tac">{{ label }}</option>
+	            {% endif %}
+            {% endfor %}
+            </select>
+        </div>
+        <div class="input-group assets-form">
+            <span class="input-group-addon">支払</span>
+            <select class="form-control parent assets-type" name="other" init="{{ info.pey_std_type }}"  {{ readonly }} style="width:30%;" ></select>
+            <select class="form-control child assets-item multi_id" name="pay_std_id" init="{{ info.pey_std_id }}" {{ readonly }} style="width:50%;" ></select>
+            <input type="text" class="form-control child multi_value" name="pay_num" value="{{ info.pay_num }}"  {{ readonly }} style="width:20%; padding-left: 22px;" />
+            <span style="font-size: 22px;vertical-align: middle; position: absolute; left:85.5%;line-height: 34px">×</span>
+        </div>
+        
+        <div class="input-group" id="multi_list">
+            <span class="input-group-addon w30">受取品目</span>
+            {% for idx,item in info.items %}
+            	<div class="multi_elem assets-form" style="position: relative;">
+		            <select class="form-control parent assets-type" name="other" init="{{ item.type }}"  {{ readonly }} style="width:30%;" ></select>
+		            <select class="form-control child assets-item multi_id" name="item_id[{{ idx }}]" init="{{ item.id }}" {{ readonly }} style="width:50%;" ></select>
+	           		<input type="text" class="form-control child multi_value" name="item_num[{{ idx }}]" value="{{ item.num }}"  {{ readonly }} style="width:20%; padding-left: 22px;" />
+            		<span style="font-size: 22px;vertical-align: middle; position: absolute; left:81%;line-height: 34px">×</span>
+           		</div>
+            {% endfor %}
+            <div class="multi_elem assets-form" style="position: relative;">
+		        <select class="form-control parent assets-type" name="other" init="0"  {{ readonly }} style="width:30%;" ></select>
+		        <select class="form-control child assets-item multi_id" name="outname1" init="0" {{ readonly }} style="width:50%;" ></select>
+	           	<input type="text" class="form-control child multi_value" name="outname2" value="0"  {{ readonly }} style="width:20%; padding-left: 22px;" />
+            	<span style="font-size: 22px;vertical-align: middle; position: absolute; left:81%;line-height: 34px">×</span>
+           	</div>
+        </div>
+        <div class="input-group half-width">
+            <span class="input-group-addon">受取制限(0で無限)</span>
+            <input type="text" class="form-control" name="limit" value="{{ info.limit }}"  {{ readonly }} />
+        </div>
+        
+        <div class="input-group half-width" id="banner_asset">
+            <span class="input-group-addon">バナーアセット</span>
+            <input type="text" class="form-control" name="banner" value="{{ info.banner }}"  {{ readonly }} />
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">ナビキャラセリフ</span>
+            <textarea type="text" class="form-control" name="message"  {{ readonly }} >{{ info.message }}</textarea>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">確認メッセージ</span>
+            <textarea type="text" class="form-control" name="conf_mes"  {{ readonly }} >{{ info.conf_mes }}</textarea>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon">不足時メッセージ</span>
+            <textarea type="text" class="form-control" name="err_mes" {{ readonly }} >{{ info.err_mes }}</textarea>
+        </div>
+        
+        
+        <div class="input-group">
+            <span class="input-group-addon">開始日時</span>
+            <input type="text" class="form-control date parent" name="from_date" value="{{ info.from_date }}" maxlength="10"  {{ readonly }}>
+            <input type="text" class="form-control time parent" name="from_time" value="{{ info.from_time }}" maxlength="8"  {{ readonly }}>
+        </div>
+        
+        <div class="input-group">
+            <span class="input-group-addon">終了日時</span>
+            <input type="text" class="form-control date parent" name="to_date" value="{{ info.to_date }}" maxlength="10"  {{ readonly }}>
+            <input type="text" class="form-control time parent" name="to_time" value="{{ info.to_time }}" maxlength="8"  {{ readonly }}>
+        </div>
+
+    </div>
+    {% set btn_w = 100 %}
+    {% if app.request.cookies.get('LOGIN_USER_ROLE_READ_ONLY') == '0' %}        
+		{% set btn_w = 50 %}
+	    {% if mode == 1 %}
+			{% set btn_w = 32 %}
+	    {% endif %}
+    {% endif%}
+
+    <div class="submit">
+        <div class="back" style="width:{{ btn_w}}%;"><a href="javascript:void(0);" onclick="movePage('{{ path('title_event_shop_list', {'sort_colmn':sort_colmn, 'sort_order':sort_order , 'offset': offset }) }}');"><span class="icon">&#xe61a;</span>キャンセル</a></div>
+        {% if app.request.cookies.get('LOGIN_USER_ROLE_READ_ONLY') == '0' %}
+        
+        {% if mode == 1 %}
+        <div class="button" style="width:{{ btn_w}}%;">
+        	<button class="btn_red" style=" border-radius:0px;" type="button" onclick="if(confirm('イベント交換所から削除します')){this.innerHTML+='<input type=\'hidden\' name=\'action\' value=\'delete\'>'; formSubmit('{{ path('title_event_shop_edit') }}');}">
+        		<span class="icon">&#xe618;</span>削除
+        	</button>
+        </div>
+        {% endif %}
+        <div class="button" style="width:{{ btn_w}}%;">
+        	<button type="button" onclick="if(confirm('イベント交換を{{ mode_str }}します')){this.innerHTML+='<input type=\'hidden\' name=\'action\' value=\'update\'>'; formSubmit('{{ path('title_event_shop_edit') }}');}">
+        		<span class="icon">&#xe61b;</span>{{ mode_str }}
+        	</button>
+        </div>
+        {% endif %}
+    </div>
+
+</form>
+
+<div id="item_selector" style="display:none;">
+    <div class="multi_elem assets-form" style="position: relative;">
+	    <select class="form-control parent assets-type" name="other" init="0"  {{ readonly }} style="width:30%;"></select>
+	    <select class="form-control child assets-item multi_id" name="outname1" init="0" {{ readonly }} style="width:50%;"></select>
+		<input type="text" class="form-control child multi_value" name="outname2" value="0"  {{ readonly }} style="width:20%; padding-left: 22px;" />
+        <span style="font-size: 22px;vertical-align: middle; position: absolute; left:81%;line-height: 34px">×</span>
+	</div>
+</div>
+{{ include('TitleManagementToolBundle:util:assets_selector.html.twig') }}
+
+{% endblock %}
+
+
+
+{% block resource %}
+<style>
+	.multi_elem{
+		cursor: pointer;
+		border: 1px solid rgba(0,0,0,0);
+	}
+	.multi_elem:hover{
+		border: 1px solid #2D80A7;
+	}
+	.submit div .btn_red{
+		background-color: #a72d2d;
+	}
+	.submit div .btn_red:hover{
+		background-color: #2b363c;
+	}
+	.submit div .btn_green{
+		background-color: #86a72d;
+	}
+	.submit div .btn_green:hover{
+		background-color: #2b363c;
+	}
+</style>
+
+<script type="text/javascript">
+	musi.addLimitEvent(window, "load", function(){
+		var base_elem = musi.parasite(".multi_elem",musi.parasite("#item_selector"));
+		var mlist = musi.parasite("#multi_list");
+		mlist.addEvent("change", function(){
+			var list = musi.parasites(".multi_elem",mlist);
+			var idx = 0;
+			for(var i=0,len=list.length;i<len;++i){
+				var e = list[i];
+				var id = musi.parasite(".multi_id",e);
+				if(id.value() <= 0){
+					mlist.removeChild(e);
+					continue;
+				}
+				var value = musi.parasite(".multi_value",e);
+				id.attr("name","item_id["+idx+"]");;
+				value.attr("name","item_num["+idx+"]");
+				++idx;
+			}
+			mlist.appendChild(base_elem.clone(true));
+		});
+	}, 1);
+</script>
+{% endblock %}

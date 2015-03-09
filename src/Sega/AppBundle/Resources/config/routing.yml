@@ -1,0 +1,57 @@
+# 絶対に手動で変更を加えないこと 
+sega_app_aprg:
+    resource: @SegaAppBundle/Resources/routing/aprg.yml
+    prefix:  /
+
+sega_app_arpg_develop:
+    resource: @SegaAppBundle/Resources/routing/arpg_develop.yml
+    prefix:  /
+
+sega_app_arpg_readonly:
+    resource: @SegaAppBundle/Resources/routing/arpg_readonly.yml
+    prefix:  /
+
+sega_app_arpg_readwrite:
+    resource: @SegaAppBundle/Resources/routing/arpg_readwrite.yml
+    prefix:  /
+
+sega_app_atomrouting:
+    resource: @SegaAppBundle/Resources/routing/atomrouting.yml
+    prefix:  /
+
+sega_app_dcs.cmn_account:
+    resource: @SegaAppBundle/Resources/routing/dcs.cmn_account.yml
+    prefix:  /
+
+sega_app_dcs.jmeter:
+    resource: @SegaAppBundle/Resources/routing/dcs.jmeter.yml
+    prefix:  /
+
+sega_app_dcs.maintenance_management_recive_routing:
+    resource: @SegaAppBundle/Resources/routing/dcs.maintenance_management_recive_routing.yml
+    prefix:  /
+
+sega_app_dcs.server_connector:
+    resource: @SegaAppBundle/Resources/routing/dcs.server_connector.yml
+    prefix:  /
+
+sega_app_noahrouting:
+    resource: @SegaAppBundle/Resources/routing/noahrouting.yml
+    prefix:  /
+
+sega_app_purchaserouting:
+    resource: @SegaAppBundle/Resources/routing/purchaserouting.yml
+    prefix:  /
+
+sega_app_sample.connection:
+    resource: @SegaAppBundle/Resources/routing/sample.connection.yml
+    prefix:  /
+
+sega_app_sample.security:
+    resource: @SegaAppBundle/Resources/routing/sample.security.yml
+    prefix:  /
+
+sega_app_sample:
+    resource: @SegaAppBundle/Resources/routing/sample.yml
+    prefix:  /
+

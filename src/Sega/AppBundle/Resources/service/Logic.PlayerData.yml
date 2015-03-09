@@ -1,0 +1,74 @@
+
+services:
+    Arpg.Logic.PlayerData.Basic:
+        class: Logic\PlayerData\Basic
+        scope: prototype
+        arguments:
+            - @service_container
+    
+    Arpg.Logic.PlayerData.State:
+        class: Logic\PlayerData\State
+        scope: prototype
+        arguments:
+            - @service_container
+    
+    Arpg.Logic.PlayerData.Equip:
+        class: Logic\PlayerData\Equip
+        scope: prototype
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.PlayerData.ActionEquip:
+        class: Logic\PlayerData\ActionEquip
+        scope: prototype
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.PlayerData.Factory:
+        class: Logic\PlayerData\Factory
+        scope: prototype
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.PlayerData.Actor:
+        class: Logic\PlayerData\Actor
+        scope: prototype
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.PlayerData.HomePopup:
+        class: Logic\PlayerData\HomePopup
+        scope: prototype
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.PlayerData.Home:
+        class: Logic\PlayerData\Home
+        scope: prototype
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.PlayerData.HomePub:
+        class: Logic\PlayerData\HomePub
+        scope: prototype
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.PlayerData.Mission:
+        class: Logic\PlayerData\Mission
+        scope: prototype
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.PlayerData.LoginBonus:
+        class: Logic\PlayerData\LoginBonus
+        scope: prototype
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.PlayerData.ActorDetail:
+        class: Logic\PlayerData\ActorDetail
+        scope: prototype
+        arguments:
+            - @service_container
+            

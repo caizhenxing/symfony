@@ -1,0 +1,5 @@
+
+dcs_server_connector:
+    pattern: /dcs/connector/{data}
+    defaults: { _controller: SegaAppBundle:ServerConnector:connector }
+

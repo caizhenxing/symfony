@@ -1,0 +1,25 @@
+acme_purchase_list_ios:
+    pattern:  /purchase/list_ios/{data}
+    defaults: { _controller: SegaAppBundle:Purchase:listIos }
+acme_purchase_list_android:
+    pattern:  /purchase/list_android/{data}
+    defaults: { _controller: SegaAppBundle:Purchase:listAndroid }
+acme_purchase_receive_ios:
+    pattern:  /purchase/receive_ios/{data}
+    defaults: { _controller: SegaAppBundle:Purchase:receiveIos }
+acme_purchase_receive_android:
+    pattern:  /purchase/receive_android/{data}
+    defaults: { _controller: SegaAppBundle:Purchase:receiveAndroid }
+acme_purchase_find_age_limit:
+    pattern:  /purchase/find_age_limit/{data}
+    defaults: { _controller: SegaAppBundle:Purchase:findAgeLimit }
+acme_purchase_update_age_limit:
+    pattern:  /purchase/update_age_limit/{data}
+    defaults: { _controller: SegaAppBundle:Purchase:updateAgeLimit }
+acme_purchase_could_buy_payment:
+    pattern:  /purchase/could_buy_payment/{data}
+    defaults: { _controller: SegaAppBundle:Purchase:couldBuyPayment }
+acme_purchase_get_sctl_param:
+    pattern:  /purchase/get_sctl_param/{data}
+    defaults: { _controller: SegaAppBundle:Purchase:getSctlParam }
+    

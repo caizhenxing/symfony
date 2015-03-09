@@ -1,0 +1,15 @@
+arpg_fitting_model:
+    pattern: /arpg/Fitting/model/{data}
+    defaults: { _controller: SegaAppBundle:Fitting:model}
+    
+arpg_fitting_model_by_actor:
+    pattern: /arpg/Fitting/model_by_actor/{data}
+    defaults: { _controller: SegaAppBundle:Fitting:modelByActor}
+
+arpg_matching_remind:
+    pattern: /arpg/matching_remind/{data}
+    defaults: { _controller: SegaAppBundle:Matching:remind}
+    
+arpg_page_gacha_rate:
+    pattern: /arpg/gacha_rate
+    defaults: { _controller: SegaAppBundle:Page:gachaRate}

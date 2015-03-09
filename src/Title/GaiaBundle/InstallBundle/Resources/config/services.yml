@@ -1,0 +1,7 @@
+parameters:
+#    gaia_install.example.class: Title\GaiaBundle\InstallBundle\Example
+
+services:
+#    gaia_install.example:
+#        class: %gaia_install.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,0 +1,48 @@
+# TODO ManagementTool タイトル側で実装したコントローラを呼び出すようにルーティングを上書きしてください
+user_info:
+  pattern: user/info
+  defaults: { _controller: title.mng_tool.controller.user_info:infoAction }
+
+# ガチャマスタ一覧
+gacha_shop_list:
+    pattern: /gaiamanagementtool/gacha/gacha_shop_list
+    defaults: { _controller: title.mng_tool.controller.gacha.card_set:gachaShopListAction }
+    
+gacha_shop_edit:
+    pattern: /gaiamanagementtool/gacha/gacha_shop_edit
+    defaults: { _controller: title.mng_tool.controller.gacha.card_set:gachaShopEditAction }
+    
+# ガチャマスタ一覧
+gacha_mst_list:
+    pattern: /gaiamanagementtool/gacha/gacha_mst_list
+    defaults: { _controller: title.mng_tool.controller.gacha.card_set:gachaMstListAction }
+  
+# ガチャマスタ登録更新
+gacha_mst_edit:
+    pattern: /gaiamanagementtool/gacha/gacha_mst_edit
+    defaults: { _controller: title.mng_tool.controller.gacha.card_set:gachaMstEditAction }
+
+# ガチャマスタ登録編集 確認
+gacha_mst_edit_confirm:
+    pattern: /gaiamanagementtool/gacha/gacha_mst_edit_confirm
+    defaults: { _controller: title.mng_tool.controller.gacha.card_set:gachaMstEditConfirmAction }
+
+# ガチャマスタ登録編集 実行
+gacha_mst_edit_execution:
+    pattern: /gaiamanagementtool/gacha/gacha_mst_edit_execution
+    defaults: { _controller: title.mng_tool.controller.gacha.card_set:gachaMstEditExecutionAction }
+
+# ガチャ排出カードマスタ登録更新
+gacha_card_edit:
+    pattern: /gaiamanagementtool/gacha/gacha_card_edit
+    defaults: { _controller: title.mng_tool.controller.gacha.card_set:gachaCardEditAction }
+
+# ガチャ排出カードマスタ登録更新 確認
+gacha_card_edit_confirm:
+    pattern: /gaiamanagementtool/gacha/gacha_card_edit_confirm
+    defaults: { _controller: title.mng_tool.controller.gacha.card_set:gachaCardEditConfirmAction }
+
+# ガチャ排出カードマスタ登録更新 実行
+gacha_card_edit_execution:
+    pattern: /gaiamanagementtool/gacha/gacha_card_edit_execution
+    defaults: { _controller: title.mng_tool.controller.gacha.card_set:gachaCardEditExecutionAction }

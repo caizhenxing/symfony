@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm
+/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/
+XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/
+schemas/orm/doctrine-mapping 
+http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Park\ThroughBundle\Entity\User" table="gaia.Users">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="fk_group_id" type="integer" column="group" 
+    length="255" nullable="false"/>
+    <field name="last_name" type="string" column="last_name" length="255" 
+    nullable="false"/>
+    <field name="first_name" type="string" column="first_name" length="255" 
+    nullable="false"/>
+    <field name="middle_name" type="string" column="middle_name" length="255" 
+    nullable="false"/>
+    <field name="date_added" type="date" column="datetime" 
+    nullable="false"/>
+  </entity>
+</doctrine-mapping>

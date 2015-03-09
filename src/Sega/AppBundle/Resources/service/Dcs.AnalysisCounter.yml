@@ -1,0 +1,18 @@
+parameters:
+    # AnalysisCounter::table('sample_table');
+    # AnalysisCounter::table('sample_table');
+    # AnalysisCounter::table('sample_table2');
+    # と呼んだ場合、 formatを [table:<u.table>] とすると [table:2] と入力された名前の種類数を出力する
+    # AnalysisCounter::sql();
+    # AnalysisCounter::sql();
+    # AnalysisCounter::sql();
+    # と呼んだ場合、formatを [sql:<s.sql>] とすると [sql:3] とメソッドが呼ばれた回数を出力する
+    dcs.analysis_counter.format: '[table:<u.table>,<u.hs_table>] [select:<s.select>,<s.hs_select>,<s.hs_select_multi>] [update:<s.update>,<s.hs_update>,<s.hs_update_multi>] [insert:<s.insert>,<s.hs_insert>,<s.hs_insert_multi>]'
+    
+services:
+    Dcs.AnalysisCounter:
+        class: Dcs\AnalysisCounter
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+        arguments:
+            - %dcs.analysis_counter.format%

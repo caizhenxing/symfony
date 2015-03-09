@@ -1,0 +1,9 @@
+services:
+    Dcs.RequestLock:
+        class: Dcs\RequestLock
+        arguments:
+            - @service_container
+            - 15    # 迷子ロックが無効になる時間(秒) 最低値3
+            - 1     # ユニークリクエストチェック 0:Memcache 1:APC
+            - 2     # Response保存先 0:Memcache 1:APC 2:DB
+            - 3600  # Response保存時間(秒)

@@ -1,0 +1,46 @@
+parameters:
+
+# TODO ManagementTool タイトル独自メニューを（ナビゲーション or サイドバー or タブ に）上書き追加してください
+# iconの設定値について
+# 前提1. icoMoonというアイコンフォントを使用して表示いております。
+# 前提2. アイコンフォントファイルは既にGaiaの管理ツールにありますので、そちらから使用するアイコンを選んで下さい。
+# 以下、アイコンの追加手順について
+# 1. 右記URLにアクセスします。http://icomoon.io/app/#/select
+# 2. 画面左上のImportIconsボタンをクリック
+# 3. vendor\gaia\src\Gaia\Bundle\ManagementToolBundle\Resources\public\fonts\icomoon.svgを選択
+# 4. icomoonの枠内に表示されているアイコンが使用できるアイコンとなりますので、
+#    使用したいアイコンをクリック(枠が黄色にになる)してFontをクリック
+# 5. アイコンのフォントがUnicodeで e610 等と表示されているので、実際に使用する場合は先頭に&#xを付けて
+#    '&#xe610;' といった値を下記のサイドバー、タブメニュー定義する際の icon:にセットしてください。
+# 6. 以上で指定したアイコンが管理画面上に表示されます。
+
+# サイドバー (上書き)
+  gaia.mng_tool.view_parameters.sidebar.user:
+    - { tag: item_list      , path: purchase_item_list      , icon: '&#xe60d;', name: 課金アイテム }
+    - { tag: gacha          , path: gacha_shop_list         , icon: '&#xe60f;', name: ガチャ }
+    - { tag: atom           , path: atom_list               , icon: '&#58887;', name: ATOM }
+    - { tag: event          , path: title_dungeon_list      , icon: '&#xe68c;', name: イベント }
+    - { tag: all_user_message  , path: all_user_message    , icon: '&#xe605;', name: 全送信メッセージ  }
+    - { tag: edit_log       , path: title_edit_log          , icon: '&#xe657;', name: 編集ログ  }
+#    - { tag: sample         , path: sample_path_1           , icon: '&#xe610;', name: タイトル独自サンプル }
+#    - { tag: server_info    , path: server_info_path        , icon: '&#xe645;', name: サーバー情報 }
+    - { tag: manage_account , path: manage_account_password , icon: '&#58890;', name: アカウント管理 }
+
+
+  gaia.mng_tool.view_parameters.sidebar.admin:
+    - { tag: item_list      , path: purchase_item_list      , icon: '&#xe60d;', name: 課金アイテム }
+    - { tag: gacha          , path: gacha_shop_list         , icon: '&#xe60f;', name: ガチャ }
+    - { tag: atom           , path: atom_list               , icon: '&#58887;', name: ATOM }
+    - { tag: event          , path: title_dungeon_list      , icon: '&#xe68c;', name: イベント }
+    - { tag: all_user_message   , path: all_user_message    , icon: '&#xe605;', name: 全送信メッセージ  }
+    - { tag: edit_log       , path: title_edit_log          , icon: '&#xe657;', name: 編集ログ  }
+    - { tag: sample         , path: sample_path_1           , icon: '&#xe610;', name: タイトル独自サンプル }
+    - { tag: server_info    , path: server_info_path        , icon: '&#xe645;', name: サーバー情報 }
+    - { tag: manage_account , path: manage_account_list     , icon: '&#58890;', name: アカウント管理 }
+
+    
+  gaia.mng_tool.view_parameters.sub_menu.user_log:
+    - { tag: action_log     , path: title_action_log_list   , name: アクションログ }
+    - { tag: present_log    , path: user_present_log_list   , name: プレゼントログ }
+    - { tag: user_log       , path: user_purchase_history   , name: 課金履歴 }
+    

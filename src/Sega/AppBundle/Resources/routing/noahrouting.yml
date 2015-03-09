@@ -1,0 +1,10 @@
+acme_noah_receive:
+    pattern:  /noah/receive/{data}
+    defaults: { _controller: SegaAppBundle:Noah:receive }
+
+acme_noah_set_noah_id:
+    pattern:  /dcs_noah/set_noah_id/{data}
+    defaults: { _controller: SegaAppBundle:Noah:setNoahId }
+
+
+

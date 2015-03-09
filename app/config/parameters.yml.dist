@@ -1,0 +1,24 @@
+parameters:
+    database_driver:   pdo_mysql
+    database_host:     127.0.0.1
+    database_port:     ~
+    database_name:     gaia
+    database_user:     root
+    database_password: ~
+
+    mailer_transport:  smtp
+    mailer_host:       127.0.0.1
+    mailer_user:       ~
+    mailer_password:   ~
+
+    locale:            ja_JP
+    secret:            ThisTokenIsNotSoSecretChangeIt
+
+    gaia.handler_socket.parameter:
+        host: localhost
+        port: 9998
+        port_wr: 9999
+        dbname: gaia
+        password: null
+        password_wr: null
+        timeout: 10

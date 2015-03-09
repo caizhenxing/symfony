@@ -1,0 +1,6 @@
+services:
+# ManagementTool GAIA のアセットマスタモデルをタイトル側で実装したクラスで上書き
+  gaia.mng_tool.model.asset_master:
+    class: Title\GaiaBundle\ManagementToolBundle\Model\AssetMasterModel
+    arguments:
+        - @service_container

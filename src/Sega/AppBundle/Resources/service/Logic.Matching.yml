@@ -1,0 +1,32 @@
+
+services:
+    Arpg.Logic.Matching.Dungeon:
+        class: Logic\Matching\Dungeon
+        scope: prototype
+        arguments:
+            - @service_container
+    
+    Arpg.Logic.Matching.Stage:
+        class: Logic\Matching\Stage
+        scope: prototype
+        arguments:
+            - @service_container
+
+    Arpg.Logic.Matching.Enemy:
+        class: Logic\Matching\Enemy
+        scope: prototype
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.Matching.Attack:
+        class: Logic\Matching\Attack
+        scope: prototype
+        arguments:
+            - @service_container
+            
+    Arpg.Logic.Matching.EquipParameter:
+        class: Logic\Matching\EquipParameter
+        scope: prototype
+        arguments:
+            - @service_container
+            

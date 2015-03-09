@@ -1,0 +1,93 @@
+# TODO ManagementTool タイトル側で新たに実装したコントローラを呼び出すようにルーティングを追加してください
+sample_path_1:
+    pattern: title/sample1
+    defaults: { _controller: sample.mng_tool.controller.title_origin:sample1Action }
+
+sample_path_2:
+    pattern: title/sample2
+    defaults: { _controller: sample.mng_tool.controller.title_origin:sample2Action }
+  
+  
+dcs_hack_login:
+    pattern: title/login
+    defaults: { _controller: TitleManagementToolBundle:Account:login }
+    
+server_info_save:
+    pattern: title/server_info/save
+    defaults: { _controller: title.mng_tool.controller.server_info:saveAction }
+    
+server_info_data:
+    pattern: title/server_info/data
+    defaults: { _controller: title.mng_tool.controller.server_info:dataAction }
+    
+server_info_path:
+    pattern: title/server_info
+    defaults: { _controller: title.mng_tool.controller.server_info:viewAction }
+  
+all_user_message:
+    pattern: title/all_user_message
+    defaults: { _controller: title.mng_tool.controller.all_user_message:listAction }
+    
+all_user_message_edit:
+    pattern: title/all_user_message_edit
+    defaults: { _controller: title.mng_tool.controller.all_user_message:editAction }
+    
+user_message:
+    pattern: title/user_message
+    defaults: { _controller: title.mng_tool.controller.user_message:listAction }
+    
+user_message_edit:
+    pattern: title/user_message_edit
+    defaults: { _controller: title.mng_tool.controller.user_message:editAction }
+    
+actor_info_path:
+    pattern: title/actor_info
+    defaults: { _controller: title.mng_tool.controller.actor_info:editAction }
+
+box_equip:
+    pattern: title/box_equip
+    defaults: { _controller: title.mng_tool.controller.warehouse:equipAction }
+    
+box_item:
+    pattern: title/box_item
+    defaults: { _controller: title.mng_tool.controller.warehouse:itemAction }
+    
+title_edit_log:
+    pattern: title/edit_log
+    defaults: { _controller: title.mng_tool.controller.edit_log:listAction }
+    
+title_action_log_list:
+    pattern: title/action_log
+    defaults: { _controller: title.mng_tool.controller.action_log:listAction }
+    
+title_dungeon_list:
+    pattern: title/dungeon_list
+    defaults: { _controller: title.mng_tool.controller.event:dungeonListAction }
+    
+title_dungeon_edit:
+    pattern: title/dungeon_edit
+    defaults: { _controller: title.mng_tool.controller.event:dungeonEditAction }
+    
+title_event_drop_list:
+    pattern: title/event_drop_list
+    defaults: { _controller: title.mng_tool.controller.event:dropListAction }
+    
+title_event_drop_edit:
+    pattern: title/event_drop_edit
+    defaults: { _controller: title.mng_tool.controller.event:dropEditAction }
+    
+title_event_shop_list:
+    pattern: title/event_shop_list
+    defaults: { _controller: title.mng_tool.controller.event:shopListAction }
+    
+title_event_shop_edit:
+    pattern: title/event_shop_edit
+    defaults: { _controller: title.mng_tool.controller.event:shopEditAction }
+    
+title_event_trade_list:
+    pattern: title/event_trade_list
+    defaults: { _controller: title.mng_tool.controller.event:tradeListAction }
+    
+title_event_trade_edit:
+    pattern: title/event_trade_edit
+    defaults: { _controller: title.mng_tool.controller.event:tradeEditAction }

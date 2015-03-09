@@ -1,0 +1,16 @@
+
+services:
+    purchase_service_filter:
+        class: Logic\PurchaseService\PurchaseServiceFilter
+
+    Dcs.Purchase:
+        class: Dcs\Purchase
+        scope: prototype
+        arguments:
+            - @purchase_service_filter
+
+    Dcs.PurchaseLogic:
+        class: Logic\PurchaseLogic
+        scope: prototype
+        arguments:
+            - @service_container

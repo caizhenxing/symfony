@@ -1,0 +1,32 @@
+{% set navigation_active = 'setting' %}
+{% set sidebar_active = 'server_info' %}
+{% set local_js = 'bundles/titlemanagementtool/js/' ~ ljs %}
+
+{% extends '@GaiaManagementTool/parts/contents.html.twig' %}
+
+{% block main %}
+    <h2>{{ title }}</h2>
+    <div class="form-group">
+    <div id="titlecontents" class="form-group-inner">
+    </div>
+    </div>
+    <span id="initdata" style="display:none;">{{ data }}</span>
+    <script>
+    	JUMP_URL = {
+			{% if JUMP_URL is not empty %}
+				{% for l in JUMP_URL %}
+					"{{l}}":"{{ path(l)}}",
+				{% endfor %}
+			{% endif %}
+			"dcs_hack_login":"{{ path('dcs_hack_login') }}"
+    	};
+    </script>
+{% endblock %}
+
+
+{% block resource %}
+<link rel="stylesheet" type="text/css" href="{{asset('bundles/titlemanagementtool/css/gutil.css')}}"></link>
+<script src="{{ asset('bundles/titlemanagementtool/js/musi.js') }}" type="text/javascript" charset="utf-8" ></script>
+<script src="{{ asset('bundles/titlemanagementtool/js/gutil.js') }}" type="text/javascript" charset="utf-8" ></script>
+<script src="{{ asset(local_js) }}" type="text/javascript" charset="utf-8" ></script>
+{% endblock %}

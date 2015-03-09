@@ -1,0 +1,27 @@
+park_crud:
+    resource: "@ParkCrudBundle/Resources/config/routing.yml"
+    prefix:   /
+
+walk_bundle:
+    resource: "@ParkThroughBundle/Resources/config/routing.yml"
+    prefix:   /
+
+sega_app:
+    resource: "@SegaAppBundle/Resources/config/routing.yml"
+    prefix:   /
+
+gaia_management_tool:
+    resource: "@GaiaManagementToolBundle/Resources/config/routing.yml"
+    prefix:   /
+# GAIA管理ツールのタイトル上書き用ルーティング設定
+title_gaia_management_tool:
+    resource: "@TitleManagementToolBundle/Resources/config/gaia_routing.yml"
+    prefix:   /
+# GAIA管理ツールのタイトル独自ルーティング設定
+title_management_tool:
+    resource: "@TitleManagementToolBundle/Resources/config/title_routing.yml"
+    prefix:   /
+# インストールチェック用ルーティング設定
+gaia_install:
+    resource: "@GaiaInstallBundle/Resources/config/routing.yml"
+    prefix:   /

@@ -1,0 +1,22 @@
+{% extends 'ParkThroughBundle::layout.html.twig' %}
+
+{% block title %}
+TEST SYMFONY  {{ parent() }}
+{% endblock %}
+
+
+{% block content_header %}
+<h1>Delete USER</h1>
+{% endblock %}
+
+{% block content %}
+DELETE SUCCESS
+{% endblock %}
+
+{% block footer %}
+<ul>
+    <li>
+        <a href="{{path('walkthrough_confirm_user')}}"><- Back</a>
+    </li>
+</ul>
+{% endblock %}

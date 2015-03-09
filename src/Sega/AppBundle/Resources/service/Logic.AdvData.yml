@@ -1,0 +1,8 @@
+
+services:
+    Arpg.Logic.AdvData.ReceiveData:
+        class: Logic\AdvData\ReceiveData
+        scope: prototype
+        arguments:
+            - @service_container
+            

@@ -1,0 +1,11 @@
+acme_atom_auths:
+    pattern:  /atom/auth/{data}
+    defaults: { _controller: SegaAppBundle:Atom:auth }
+
+acme_atom_invite_code:
+    pattern:  /atom/inviteCode/{data}
+    defaults: { _controller: SegaAppBundle:Atom:inviteCode }
+
+acme_atom_input_code_list:
+    pattern:  /atom/inputCodeList/{data}
+    defaults: { _controller: SegaAppBundle:Atom:inputCodeList }
